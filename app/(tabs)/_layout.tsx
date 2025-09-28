@@ -1,18 +1,13 @@
-import { images } from "@/constants";
 import { TabBarIconProps } from "@/type";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import cn from "clsx";
 import { Slot, Tabs } from "expo-router";
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 const TabBarIcon = ({ focused, icon, title }: TabBarIconProps) => (
   <View className="flex min-w-20 items-center justify-center min-h-full gap-1 mt-12">
-    <Image
-      source={icon}
-      className="size-6"
-      resizeMode="contain"
-      tintColor={focused ? "#FD8200" : "#8F9098"}
-    />
+    <Ionicons name={icon} size={26} color={focused ? "#FE8C00" : "#5D5F6D"} />
     <Text
       className={cn(
         "text-sm font-bold",
@@ -42,7 +37,7 @@ const _layout = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               title="Trang chủ"
-              icon={images.home}
+              icon={"home-outline"}
               focused={focused}
             />
           ),
@@ -54,7 +49,7 @@ const _layout = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               title="Tìm kiếm"
-              icon={images.search}
+              icon={"search-outline"}
               focused={focused}
             />
           ),
@@ -66,7 +61,7 @@ const _layout = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               title="Yêu thích"
-              icon={images.favorites}
+              icon={"heart-outline"}
               focused={focused}
             />
           ),
@@ -76,7 +71,11 @@ const _layout = () => {
         name="profile"
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon title="Cá nhân" icon={images.user} focused={focused} />
+            <TabBarIcon
+              title="Cá nhân"
+              icon={"person-outline"}
+              focused={focused}
+            />
           ),
         }}
       />

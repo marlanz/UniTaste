@@ -1,5 +1,5 @@
 import { TabBarIconProps } from "@/type";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { Slot, Tabs } from "expo-router";
 import React from "react";
@@ -7,10 +7,10 @@ import { Text, View } from "react-native";
 
 const TabBarIcon = ({ focused, icon, title }: TabBarIconProps) => (
   <View className="flex min-w-20 items-center justify-center min-h-full gap-1 mt-12">
-    <Ionicons name={icon} size={26} color={focused ? "#FE8C00" : "#5D5F6D"} />
+    <Ionicons name={icon} size={24} color={focused ? "#FE8C00" : "#5D5F6D"} />
     <Text
       className={cn(
-        "text-sm font-bold",
+        "text-xs font-msr-bold",
         focused ? "text-orange-200" : "text-gray-100"
       )}
     >

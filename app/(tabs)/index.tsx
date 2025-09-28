@@ -1,59 +1,48 @@
-import { images } from "@/constants";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { LinearGradient } from "expo-linear-gradient";
+import HomeHeader from "@/components/HomeHeader";
+import PlaceSuggestions from "@/components/PlaceSuggestions";
+import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
-import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect } from "react";
+import { ScrollView, Text, View } from "react-native";
 
-const index = () => {
+const Home = () => {
   const isAuthenticated = true;
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.replace("/login");
+    }
+  }, [isAuthenticated]);
+
   if (!isAuthenticated) {
-    router.replace("/login");
+    // Don't render anything while redirecting
     return null;
   }
 
   return (
-    <View className="flex-1 bg-white-100">
-      <LinearGradient
-        colors={["#FD8200", "#EB4F26"]}
-        start={{ x: 0, y: 0 }} // top-left
-        end={{ x: 1, y: 1 }} // bottom-right
-        style={{ paddingHorizontal: 20, paddingTop: 76, paddingBottom: 25 }}
-        className="px-5 pt-[76px] "
-      >
-        <View className="flex-row items-center justify-between">
-          <View className="flex-row items-center gap-3">
-            <Image
-              source={images.profile}
-              className="size-[50px] rounded-full"
-            />
-            <View>
-              <Text className="font-msr-medium text-base text-white-100">
-                Hôm nay bạn muốn ăn gì
-              </Text>
-              <Text className="font-msr-bold text-xl text-white-100">
-                Phuc Anh Do Dang
-              </Text>
-            </View>
-          </View>
-          <TouchableOpacity>
-            <Ionicons name="notifications-outline" size={26} color="#FFFFFF" />
-          </TouchableOpacity>
-        </View>
-        <View className="mt-6 flex-row items-center justify-between flex gap-2">
-          <Pressable className="flex-row items-center rounded-full p-4 bg-white-100 gap-2 flex-1">
-            <Ionicons name="search-outline" size={20} />
-            <Text className=" font-msr text-xl text-gray-100">
-              Tìm kiếm quán ăn
+    <ScrollView
+      className="flex-1 bg-white-100"
+      bounces={false} // iOS: prevent overscroll "bounce"
+      overScrollMode="never"
+    >
+      <HomeHeader />
+      <PlaceSuggestions />
+      <View className="mt-[40px] px-4 gap-4">
+        <View className="flex-row justify-between items-center">
+          <Text className="text-base font-msr-sbold">Dành cho bạn</Text>
+          <View className="flex-row items-center gap-1">
+            <Text className="text-sm font-msr-medium text-gray-200">
+              Xem thêm
             </Text>
-          </Pressable>
-          <Pressable className="p-4 bg-white-100 rounded-full">
-            <Ionicons name="map-outline" size={26} color="#FD8200" />
-          </Pressable>
+            <Ionicons
+              name="chevron-forward-outline"
+              size={14}
+              color={"#71727a"}
+            />
+          </View>
         </View>
-      </LinearGradient>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
-export default index;
+export default Home;

@@ -32,7 +32,7 @@ const Login = () => {
         </Text>
       </TouchableOpacity>
       <View className="flex items-center gap-4">
-        <CustomButton title="Đăng nhập" onPress={() => router.push("/index")} />
+        <CustomButton title="Đăng nhập" onPress={() => router.push("/")} />
         <View className="flex-row">
           <Text className="text-gray-200 font-msr-sbold text-sm">
             Chưa có tài khoản?

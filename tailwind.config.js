@@ -30,6 +30,9 @@ module.exports = {
         "msr-ebold": ["Montserrat-ExtraBold", "sans-serif"],
         "msr-medium": ["Montserrat-Medium", "sans-serif"],
       },
+      backgroundImage: {
+        "brand-gradient": "linear-gradient(66deg, #FD8200 0%, #EB4F26 100%)",
+      },
     },
   },
   plugins: [],

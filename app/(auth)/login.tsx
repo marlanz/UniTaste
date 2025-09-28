@@ -6,7 +6,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 const Login = () => {
   return (
-    <View className="flex-1 px-6 py-10 gap-6 absolute w-full  bg-white-100 top-[200] rounded-t-3xl">
+    <View className="flex-1 px-6 py-10 gap-6 absolute w-full  bg-white-100 top-[200] rounded-t-3xl -mt-6">
       <Text className="text-2xl  text-center font-msr-ebold">
         Cùng nhau khám phá
         {"\n"}
@@ -32,7 +32,7 @@ const Login = () => {
         </Text>
       </TouchableOpacity>
       <View className="flex items-center gap-4">
-        <CustomButton title="Đăng nhập" />
+        <CustomButton title="Đăng nhập" onPress={() => router.push("/index")} />
         <View className="flex-row">
           <Text className="text-gray-200 font-msr-sbold text-sm">
             Chưa có tài khoản?

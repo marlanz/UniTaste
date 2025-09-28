@@ -26,10 +26,9 @@ const Layout = () => {
             source={images.login_bg}
             resizeMode="stretch"
             className="w-full"
-            style={{ height: 250 }}
+            style={{ height: 200 }}
           />
         </View>
-
         <Slot />
       </ScrollView>
     </KeyboardAvoidingView>

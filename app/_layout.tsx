@@ -25,5 +25,9 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <Stack
+      screenOptions={{ headerShown: false, animation: "ios_from_right" }}
+    />
+  );
 }

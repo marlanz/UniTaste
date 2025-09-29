@@ -28,7 +28,7 @@ const options = [
 
 const PlaceSuggestions = () => {
   return (
-    <View className="mt-6 px-4 gap-4">
+    <View className="mt-6 pl-4 gap-4">
       <Text className="text-base font-msr-sbold">Bạn muốn đi đâu?</Text>
       <FlatList
         data={options}
@@ -53,7 +53,7 @@ const PlaceSuggestions = () => {
         )}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerClassName="gap-x-3"
+        contentContainerClassName="gap-x-3 pr-4"
         bounces={false}
         overScrollMode="never"
       />

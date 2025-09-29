@@ -1,39 +1,16 @@
-export interface CartCustomization {
-  id: string;
-  name: string;
-  price: number;
-  type: string;
-}
-
-export interface CartItemType {
-  id: string; // menu item id
-  name: string;
-  price: number;
-  image_url: string;
-  quantity: number;
-  customizations?: CartCustomization[];
-}
-
-interface TabBarIconProps {
-  focused: boolean;
-  icon: ImageSourcePropType;
-  title: string;
-}
-
-interface PaymentInfoStripeProps {
-  label: string;
-  value: string;
-  labelStyle?: string;
-  valueStyle?: string;
-}
-
-interface CustomButtonProps {
+export interface CustomButtonProps {
   onPress?: () => void;
   title?: string;
   style?: string;
   leftIcon?: React.ReactNode;
   textStyle?: string;
   isLoading?: boolean;
+}
+
+interface TabBarIconProps {
+  focused: boolean;
+  icon: ImageSourcePropType;
+  title: string;
 }
 
 interface CustomHeaderProps {

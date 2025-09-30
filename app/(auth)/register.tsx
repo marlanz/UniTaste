@@ -1,11 +1,16 @@
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import { Checkbox } from "expo-checkbox";
-import { router } from "expo-router";
+import { router, usePathname } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const Register = () => {
+  const pathName = usePathname();
+  const showRoute = () => {
+    console.log(pathName);
+    router.push("/login");
+  };
   return (
     <View className="px-6 py-10 gap-6 bg-white-100 rounded-t-3xl -mt-6">
       <Text className="text-2xl text-center font-msr-ebold">
@@ -41,7 +46,7 @@ const Register = () => {
       </View>
 
       <View className="flex items-center gap-4">
-        <CustomButton title="Đăng kí" />
+        <CustomButton title="Đăng ký" onPress={() => router.push("/")} />
         <View className="flex-row">
           <Text className="text-gray-200 font-msr-sbold text-sm">
             Đã có tài khoản?

@@ -6,7 +6,14 @@ import { restaurants } from "@/data/restaurants";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect } from "react";
-import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 
 const Home = () => {
   const isAuthenticated = true;
@@ -47,20 +54,30 @@ const Home = () => {
         <FlatList
           data={restaurants}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <CustomShopCard shop={item} />}
+          renderItem={({ item }) => <CustomShopCard shop={item} isFeatured />}
           horizontal
           contentContainerClassName="gap-x-3 pl-4"
           showsHorizontalScrollIndicator={false}
         />
       </View>
       <View className="mt-[40px] bg-orange-100 p-6 gap-4">
-        <View>
-          <Text className="font-msr-bold text-[18px] text-white-100">
-            Đăng kí gói thành viên
-          </Text>
-          <Text className="font-msr-medium text-white-100 mnt-1">
-            Mở khóa vô vàn quyền lợi
-          </Text>
+        <View className="items-center flex-row justify-between">
+          <View className="">
+            <Text className="font-msr-bold text-xl text-white-100">
+              Đăng kí gói thành viên
+            </Text>
+            <Text className="font-msr-medium text-white-100 mt-1 text-base">
+              Mở khóa vô vàn quyền lợi
+            </Text>
+          </View>
+          <Pressable>
+            <Ionicons
+              name="chevron-forward-outline"
+              size={16}
+              color={"black"}
+              className=" bg-white-100 rounded-full p-1"
+            />
+          </Pressable>
         </View>
         <View>
           <View className="flex-row justify-between">
@@ -71,8 +88,8 @@ const Home = () => {
                 resizeMode="stretch"
               />
               <View className="absolute inset-0 bg-black/40 rounded-[20px] size-[170px]" />
-              <View className="absolute top-[46] left-[16] gap-1">
-                <Text className="font-msr-sbold text-base text-white-100 w-[120px]">
+              <View className="absolute top-[25] left-[16] gap-1">
+                <Text className="font-msr-sbold text-[18px] text-white-100 w-[120px]">
                   Mở rộng phạm vị tìm quán và chuẩn hơn
                 </Text>
               </View>
@@ -84,9 +101,9 @@ const Home = () => {
                 resizeMode="stretch"
               />
               <View className="absolute inset-0 bg-black/40 rounded-[20px] size-[170px]" />
-              <View className="absolute top-[46] left-[16] gap-1">
-                <Text className="font-msr-sbold text-base text-white-100 w-[120px]">
-                  Cá nhân hóa sở thích với trí tuệ nhân tạo
+              <View className="absolute top-[25] left-[16] gap-1">
+                <Text className="font-msr-sbold text-[18px] text-white-100 w-[120px]">
+                  Cá nhân hóa sở thích ăn uống với AI
                 </Text>
               </View>
             </View>
@@ -110,7 +127,9 @@ const Home = () => {
         <FlatList
           data={restaurants}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <CustomShopCard shop={item} />}
+          renderItem={({ item }) => (
+            <CustomShopCard shop={item} isFeatured={false} />
+          )}
           horizontal
           contentContainerClassName="gap-x-3 pl-4"
           showsHorizontalScrollIndicator={false}
@@ -133,7 +152,9 @@ const Home = () => {
         <FlatList
           data={restaurants}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <CustomShopCard shop={item} />}
+          renderItem={({ item }) => (
+            <CustomShopCard shop={item} isFeatured={false} />
+          )}
           horizontal
           contentContainerClassName="gap-x-3 pl-4"
           showsHorizontalScrollIndicator={false}

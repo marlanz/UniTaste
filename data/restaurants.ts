@@ -1,4 +1,6 @@
-export const restaurants = [
+import { Shop } from "@/components/CustomShopCard";
+
+export const restaurants: Shop[] = [
   {
     name: "Katinat Saigon Kafe Nguyễn Bỉnh Khiêm",
     imgUrl:
@@ -10,7 +12,7 @@ export const restaurants = [
     long: 106.8035,
   },
   {
-    name: "Highlands Coffee Nguyễn Xí ",
+    name: "Highlands Coffee Nguyễn Xí - Bình Thạnh",
     imgUrl:
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/57/d9/65/photo0jpg.jpg?w=900&h=500&s=1",
     priceRange: 2,
@@ -20,7 +22,7 @@ export const restaurants = [
     long: 106.6991,
   },
   {
-    name: "Popeyes Chicken Nguyễn Xí",
+    name: "Popeyes Chicken Nguyễn Xí - Bình Thạnh",
     imgUrl:
       "https://i.pinimg.com/736x/95/84/1f/95841fef17813d9065dff1f4ad3ff9bb.jpg",
     priceRange: 2,
@@ -30,7 +32,7 @@ export const restaurants = [
     long: 106.6923,
   },
   {
-    name: "KFC Vincom Phan Văn Trị",
+    name: "Gà rán KFC Vincom Phan Văn Trị - Gò Vấp",
     imgUrl:
       "https://i.pinimg.com/1200x/86/0d/d1/860dd171212c6195c8b9d1fc654cf282.jpg",
     priceRange: 1,

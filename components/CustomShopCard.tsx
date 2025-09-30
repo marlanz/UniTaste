@@ -2,11 +2,11 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Image, Text, View } from "react-native";
 
-interface Shop {
+export interface Shop {
   name?: string;
   address?: string;
   imgUrl?: string;
-  priceRange?: number;
+  priceRange: PriceRange;
   rating?: number;
   long: number;
   lat: number;
@@ -14,23 +14,22 @@ interface Shop {
 
 interface CustomShopCardProps {
   shop: Shop;
+  isFeatured: boolean;
 }
 
+type PriceRange = 1 | 2 | 3;
+
+const PRICE_RANGE_LABELS: Record<PriceRange, string> = {
+  1: "Giá dễ chịu",
+  2: "Giá hợp lý",
+  3: "Giá cao cấp",
+};
+
+export const getPriceLabel = (range: PriceRange): string => {
+  return PRICE_RANGE_LABELS[range];
+};
+
 const CustomShopCard = ({ shop }: CustomShopCardProps) => {
-  const MAX_RATING = 5;
-
-  const renderPriceIcons = () => {
-    return Array.from({ length: MAX_RATING }, (_, index) => (
-      <Ionicons
-        key={index}
-        name="cash-outline"
-        size={16}
-        // style={{ marginRight: -6 }}
-        color={index < (shop.priceRange ?? 0) ? "#FD8200" : "#C5C5C5"}
-      />
-    ));
-  };
-
   return (
     <View className="gap-3">
       <Image
@@ -43,7 +42,7 @@ const CustomShopCard = ({ shop }: CustomShopCardProps) => {
           {shop.name}
         </Text>
         <View className="flex-row items-center gap-1">
-          <Ionicons name="location-outline" size={16} />
+          <Ionicons name="location-outline" size={16} color={"#FD8200"} />
           <Text
             className="max-w-[190px] font-msr-medium text-gray-200 text-sm"
             numberOfLines={1}
@@ -54,9 +53,9 @@ const CustomShopCard = ({ shop }: CustomShopCardProps) => {
         </View>
       </View>
       <View className="flex-row items-center gap-5">
-        <View className="flex-row items-center gap-[1px]">
-          {renderPriceIcons()}
-        </View>
+        <Text className="text-sm text-orange-200 font-msr-sbold px-2 py-1 border border-orange-200 rounded-lg">
+          {getPriceLabel(shop.priceRange)}
+        </Text>
         <View className="flex-row gap-2 items-center">
           <Ionicons name="star" size={16} color={"#FD8200"} />
           <Text className="font-msr-sbold text-sm">{shop.rating}</Text>

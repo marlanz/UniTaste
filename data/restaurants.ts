@@ -1,6 +1,6 @@
 export const restaurants = [
   {
-    name: "Katinat Saigon Kafe",
+    name: "Katinat Saigon Kafe Nguyễn Bỉnh Khiêm",
     imgUrl:
       "https://i.pinimg.com/736x/b5/72/91/b5729166212f9270f66bc5c644323d15.jpg",
     priceRange: 3,
@@ -10,7 +10,7 @@ export const restaurants = [
     long: 106.8035,
   },
   {
-    name: "Highlands Coffee",
+    name: "Highlands Coffee Nguyễn Xí ",
     imgUrl:
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/57/d9/65/photo0jpg.jpg?w=900&h=500&s=1",
     priceRange: 2,
@@ -20,7 +20,7 @@ export const restaurants = [
     long: 106.6991,
   },
   {
-    name: "Popeyes Chicken",
+    name: "Popeyes Chicken Nguyễn Xí",
     imgUrl:
       "https://i.pinimg.com/736x/95/84/1f/95841fef17813d9065dff1f4ad3ff9bb.jpg",
     priceRange: 2,
@@ -30,7 +30,7 @@ export const restaurants = [
     long: 106.6923,
   },
   {
-    name: "KFC Vincom",
+    name: "KFC Vincom Phan Văn Trị",
     imgUrl:
       "https://i.pinimg.com/1200x/86/0d/d1/860dd171212c6195c8b9d1fc654cf282.jpg",
     priceRange: 1,
@@ -40,7 +40,7 @@ export const restaurants = [
     long: 106.7036,
   },
   {
-    name: "TocoToco Bubble Tea",
+    name: "TocoToco Bubble Tea Phạm Văn Đồng",
     imgUrl:
       "https://i.pinimg.com/1200x/8e/53/df/8e53df225cf46d380b2bfdcc6a89d8aa.jpg",
     priceRange: 2,
@@ -50,7 +50,7 @@ export const restaurants = [
     long: 106.6821,
   },
   {
-    name: "Chicken Plus",
+    name: "Chicken Plus Phan Đăng Lưu",
     imgUrl:
       "https://i.pinimg.com/736x/cf/59/5c/cf595cb363856dca54adf5dc57da3e17.jpg",
     priceRange: 3,

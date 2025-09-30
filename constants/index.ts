@@ -6,6 +6,8 @@ import bigmeal from "@/assets/images/bigmeal.png";
 import drinks from "@/assets/images/drinks.png";
 import fastfood from "@/assets/images/fastfood.png";
 import login_bg from "@/assets/images/login_bg.png";
+import premium1 from "@/assets/images/premium1.png";
+import premium2 from "@/assets/images/premium2.png";
 import profile from "@/assets/images/profile.png";
 
 export const images = {
@@ -18,4 +20,6 @@ export const images = {
   drinks,
   bigmeal,
   fastfood,
+  premium2,
+  premium1
 };

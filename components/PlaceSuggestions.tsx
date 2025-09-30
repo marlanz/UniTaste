@@ -45,7 +45,7 @@ const PlaceSuggestions = () => {
               <Text className="font-msr-bold text-2xl text-white-100">
                 {item.title}
               </Text>
-              <Text className="font-msr-medium text-base text-white-100 max-w-[120px]">
+              <Text className="font-msr-medium text-sm text-white-100 max-w-[120px]">
                 {item.desc}
               </Text>
             </View>

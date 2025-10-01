@@ -29,7 +29,9 @@ const options = [
 const PlaceSuggestions = () => {
   return (
     <View className="mt-6 pl-4 gap-4">
-      <Text className="text-base font-msr-sbold">Bạn muốn đi đâu?</Text>
+      <Text className="text-[18px] font-msr-sbold text-orange-100">
+        Bạn muốn đi đâu?
+      </Text>
       <FlatList
         data={options}
         keyExtractor={(item, index) => index.toString()}

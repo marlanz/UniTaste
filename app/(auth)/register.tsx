@@ -7,10 +7,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 const Register = () => {
   const pathName = usePathname();
-  const showRoute = () => {
-    console.log(pathName);
-    router.push("/login");
-  };
+
   return (
     <View className="px-6 py-10 gap-6 bg-white-100 rounded-t-3xl -mt-6">
       <Text className="text-2xl text-center font-msr-ebold">

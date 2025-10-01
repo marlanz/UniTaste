@@ -1,10 +1,12 @@
 import { images } from "@/constants";
+import { useAuth } from "@/providers/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 
 const HomeHeader = () => {
+  const { user } = useAuth();
   return (
     <LinearGradient
       colors={["#FD8200", "#EB4F26"]}
@@ -21,7 +23,7 @@ const HomeHeader = () => {
               Hôm nay bạn muốn ăn gì
             </Text>
             <Text className="font-msr-bold text-xl text-white-100">
-              Phuc Anh Do Dang
+              {user?.fullName}
             </Text>
           </View>
         </View>

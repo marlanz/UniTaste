@@ -3,6 +3,7 @@ import HomeHeader from "@/components/HomeHeader";
 import PlaceSuggestions from "@/components/PlaceSuggestions";
 import { images } from "@/constants";
 import { restaurants } from "@/data/restaurants";
+import { useAuth } from "@/providers/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect } from "react";
@@ -16,15 +17,15 @@ import {
 } from "react-native";
 
 const Home = () => {
-  const isAuthenticated = true;
+  const { isAuthenticated, appLoading } = useAuth();
+
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!appLoading && !isAuthenticated) {
       router.replace("/login");
     }
-  }, [isAuthenticated]);
+  }, [appLoading, isAuthenticated]);
 
-  if (!isAuthenticated) {
-    // Don't render anything while redirecting
+  if (appLoading || !isAuthenticated) {
     return null;
   }
 
@@ -34,12 +35,15 @@ const Home = () => {
       bounces={false} // iOS: prevent overscroll "bounce"
       overScrollMode="never"
       contentContainerStyle={{ paddingBottom: 40 }}
+      showsVerticalScrollIndicator={false}
     >
       <HomeHeader />
       <PlaceSuggestions />
       <View className="mt-[40px] gap-4">
         <View className="flex-row justify-between items-center  px-4">
-          <Text className="text-base font-msr-sbold">Dành cho bạn</Text>
+          <Text className="text-[18px] font-msr-sbold text-orange-100">
+            Dành cho bạn
+          </Text>
           <View className="flex-row items-center gap-1">
             <Text className="text-sm font-msr-medium text-gray-200">
               Xem thêm
@@ -112,7 +116,9 @@ const Home = () => {
       </View>
       <View className="mt-[40px] gap-4">
         <View className="flex-row justify-between items-center  px-4">
-          <Text className="text-base font-msr-sbold">Lấp cái bụng đói</Text>
+          <Text className="text-[18px] font-msr-sbold text-orange-100">
+            Lấp cái bụng đói
+          </Text>
           <View className="flex-row items-center gap-1">
             <Text className="text-sm font-msr-medium text-gray-200">
               Xem thêm
@@ -137,7 +143,9 @@ const Home = () => {
       </View>
       <View className="mt-[40px] gap-4">
         <View className="flex-row justify-between items-center  px-4">
-          <Text className="text-base font-msr-sbold">Điểm Hẹn Giải Khát</Text>
+          <Text className="text-[18px] font-msr-sbold text-orange-100">
+            Điểm Hẹn Giải Khát
+          </Text>
           <View className="flex-row items-center gap-1">
             <Text className="text-sm font-msr-medium text-gray-200">
               Xem thêm

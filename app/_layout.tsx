@@ -1,3 +1,4 @@
+import AuthProvider from "@/providers/AuthProvider";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -26,8 +27,10 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{ headerShown: false, animation: "ios_from_right" }}
-    />
+    <AuthProvider>
+      <Stack
+        screenOptions={{ headerShown: false, animation: "ios_from_right" }}
+      />
+    </AuthProvider>
   );
 }

@@ -53,7 +53,7 @@ const CustomShopCard = ({ shop }: CustomShopCardProps) => {
         </View>
       </View>
       <View className="flex-row items-center gap-5">
-        <Text className="text-sm text-orange-200 font-msr-sbold px-2 py-1 border border-orange-200 rounded-lg">
+        <Text className="text-xs text-orange-200 font-msr-sbold px-2 py-1 border border-orange-200 rounded-lg">
           {getPriceLabel(shop.priceRange)}
         </Text>
         <View className="flex-row gap-2 items-center">

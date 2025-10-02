@@ -1,12 +1,24 @@
+import { useAuth } from "@/providers/AuthProvider";
+import { router } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const profile = () => {
+const Profile = () => {
+  const { signOut } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut();
+    router.push("/login");
+  };
   return (
-    <View>
+    <SafeAreaView>
       <Text>profile</Text>
-    </View>
+      <Pressable onPress={() => handleLogout()}>
+        <Text>log out</Text>
+      </Pressable>
+    </SafeAreaView>
   );
 };
 
-export default profile;
+export default Profile;

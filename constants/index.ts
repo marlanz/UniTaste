@@ -21,5 +21,5 @@ export const images = {
   bigmeal,
   fastfood,
   premium2,
-  premium1
+  premium1,
 };

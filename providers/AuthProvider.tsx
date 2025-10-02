@@ -53,7 +53,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       setUser({ email, fullName });
       await saveToStorage("authUser", { email, fullName });
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     } finally {
       setAppLoading(false);
     }

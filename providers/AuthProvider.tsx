@@ -11,9 +11,11 @@ import {
   saveToStorage,
 } from "../utils/storage";
 
-import axios from "axios";
+import { authApi } from "@/api/api";
+import { ENDPOINTS } from "@/api/constants";
 
-interface User {
+export interface User {
+  token: string;
   email: string;
   fullName: string;
 }
@@ -27,9 +29,6 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const BASE_URL_LOGIN: string =
-  "https://unitasteapp1.onrender.com/api/users/Login";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -48,10 +47,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     const body = { email, password: pw };
     setAppLoading(true);
     try {
-      const response = await axios.post(`${BASE_URL_LOGIN}`, body);
-      const { email, fullName } = response.data;
-      setUser({ email, fullName });
-      await saveToStorage("authUser", { email, fullName });
+      const response = await authApi.post(`${ENDPOINTS.LOGIN}`, body);
+      // const {token, email, fullName } = response.data;
+      setUser(response.data);
+      await saveToStorage("authUser", response.data);
     } catch (err) {
       console.log(err);
     } finally {

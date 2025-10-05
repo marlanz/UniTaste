@@ -5,12 +5,10 @@ import React, { useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 
 const Verify = () => {
-  const { tempMail } = useAuth();
+  const { tempMail, appLoading, setAppLoading } = useAuth();
 
-  // Store OTP digits
   const [code, setCode] = useState(["", "", "", "", "", ""]);
 
-  // Refs for each input
   const inputRefs = [
     useRef<TextInput>(null),
     useRef<TextInput>(null),
@@ -26,11 +24,27 @@ const Verify = () => {
     setCode(newCode);
 
     if (text && index < inputRefs.length - 1) {
-      inputRefs[index + 1].current?.focus(); // move forward
+      inputRefs[index + 1].current?.focus();
     }
     if (!text && index > 0) {
-      inputRefs[index - 1].current?.focus(); // move back on delete
+      inputRefs[index - 1].current?.focus();
     }
+  };
+
+  const handleCheckCode = async () => {
+    inputRefs[inputRefs.length - 1].current?.blur();
+    const finalCode = code.join("");
+    const body = { email: tempMail, otpCode: finalCode };
+    console.log(body);
+    // setAppLoading(true);
+    // try {
+    //   const data = await verifyAccount(body);
+    //   console.log(data);
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setAppLoading(false);
+    // }
   };
 
   return (
@@ -56,13 +70,7 @@ const Verify = () => {
       </View>
 
       <View className="flex items-center gap-4 mt-4">
-        <CustomButton
-          title="Xác nhận"
-          onPress={() => {
-            const finalCode = code.join("");
-            console.log("OTP entered:", finalCode);
-          }}
-        />
+        <CustomButton title="Xác nhận" onPress={() => handleCheckCode()} />
       </View>
     </View>
   );

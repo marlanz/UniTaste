@@ -28,7 +28,10 @@ const Register = () => {
       if (data.status === true) {
         setTempMail(form.email);
         router.push("/verify");
+      } else {
+        console.log(data.message);
       }
+
       // else alert mail has been registered
     } catch (error) {
       console.log(error);

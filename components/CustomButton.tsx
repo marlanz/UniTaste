@@ -8,7 +8,7 @@ const CustomButton = ({
   style,
   textStyle,
   leftIcon,
-  isLoading = false,
+  isLoading,
 }: CustomButtonProps) => {
   return (
     <TouchableOpacity

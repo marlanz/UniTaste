@@ -22,17 +22,21 @@ export interface User {
 
 interface AuthContextType {
   user: User | null;
+  tempMail: string;
   appLoading: boolean;
   isAuthenticated: boolean;
   signIn: (email: string, pw: string) => Promise<void>;
   signOut: () => Promise<void>;
+  setAppLoading: (loading: boolean) => void;
+  setTempMail: (mail: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [appLoading, setAppLoading] = useState(true);
+  const [appLoading, setAppLoading] = useState(false);
+  const [tempMail, setTempMail] = useState("");
 
   useEffect(() => {
     const loadUser = async () => {
@@ -71,7 +75,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, appLoading, isAuthenticated, signIn, signOut }}
+      value={{
+        user,
+        appLoading,
+        tempMail,
+        isAuthenticated,
+        signIn,
+        signOut,
+        setAppLoading,
+        setTempMail,
+      }}
     >
       {children}
     </AuthContext.Provider>

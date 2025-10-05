@@ -1,12 +1,41 @@
+import { signUp } from "@/api/services/auth.service";
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
-import { Checkbox } from "expo-checkbox";
-import { router, usePathname } from "expo-router";
-import React from "react";
+import { useAuth } from "@/providers/AuthProvider";
+import { router } from "expo-router";
+import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const Register = () => {
-  const pathName = usePathname();
+  const { appLoading, setAppLoading, setTempMail } = useAuth();
+
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    passwordHash: "",
+    confirmPassword: "",
+    birthDate: "2025-10-01",
+  });
+
+  const handleChange = (name: keyof typeof form, value: string) => {
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCreateAccount = async () => {
+    setAppLoading(true);
+    try {
+      const data = await signUp(form);
+      if (data.status === true) {
+        setTempMail(form.email);
+        router.push("/verify");
+      }
+      // else alert mail has been registered
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setAppLoading(false);
+    }
+  };
 
   return (
     <View className="px-6 py-10 gap-6 bg-white-100 rounded-t-3xl -mt-6">
@@ -15,20 +44,37 @@ const Register = () => {
         <Text className="text-orange-100">Cộng Đồng Ẩm Thực 🍔</Text>
       </Text>
 
-      <CustomInput label="Họ và Tên" placeholder="Nhập họ và tên" />
-      <CustomInput label="Địa chỉ Email" placeholder="Nhập địa chỉ email" />
+      <CustomInput
+        label="Họ và Tên"
+        placeholder="Nhập họ và tên"
+        value={form.fullName}
+        onChangeText={(text) => handleChange("fullName", text)}
+      />
+
+      <CustomInput
+        label="Địa chỉ Email"
+        placeholder="Nhập địa chỉ email"
+        value={form.email}
+        onChangeText={(text) => handleChange("email", text)}
+      />
+
       <CustomInput
         label="Mật khẩu"
         placeholder="Nhập mật khẩu"
         secureTextEntry
+        value={form.passwordHash}
+        onChangeText={(text) => handleChange("passwordHash", text)}
       />
+
       <CustomInput
         label="Xác nhận mật khẩu"
         placeholder="Nhập lại mật khẩu"
         secureTextEntry
+        value={form.confirmPassword}
+        onChangeText={(text) => handleChange("confirmPassword", text)}
       />
 
-      <View className="flex-row items-center gap-4">
+      {/* <View className="flex-row items-center gap-4">
         <Checkbox />
         <Text className="font-msr text-sm flex-1">
           Tôi đã đồng ý với{" "}
@@ -40,10 +86,14 @@ const Register = () => {
             Chính sách Bảo mật
           </Text>
         </Text>
-      </View>
+      </View> */}
 
       <View className="flex items-center gap-4">
-        <CustomButton title="Đăng ký" onPress={() => router.push("/")} />
+        <CustomButton
+          title="Đăng ký"
+          onPress={() => handleCreateAccount()}
+          isLoading={appLoading}
+        />
         <View className="flex-row">
           <Text className="text-gray-200 font-msr-sbold text-sm">
             Đã có tài khoản?

@@ -10,7 +10,7 @@ type RegisterProps = {
   fullName: string;
   email: string;
   passwordHash: string;
-  birthDate: "2025-10-01";
+  birthDate: string;
 };
 
 type VerificationProps = {
@@ -19,8 +19,8 @@ type VerificationProps = {
 };
 
 type ConfirmResetProps = {
-  token: "string";
-  newPassword: "string";
+  token: string;
+  newPassword: string;
 };
 
 export const signIn = async (body: LoginProps): Promise<any> => {
@@ -66,7 +66,9 @@ export const sendResetPassworCode = async (email: string): Promise<any> => {
   }
 };
 
-export const checkResetPassworCode = async (body: ConfirmResetProps): Promise<any> => {
+export const checkResetPassworCode = async (
+  body: ConfirmResetProps
+): Promise<any> => {
   try {
     const response = await authApi.post(
       `${ENDPOINTS.CHECK_RESET_PW_CODE}`,

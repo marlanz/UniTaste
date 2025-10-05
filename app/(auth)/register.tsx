@@ -6,39 +6,41 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
+
+
 const Register = () => {
   const { appLoading, setAppLoading, setTempMail } = useAuth();
+
+  // type RegisterForm = RegisterProps & {confirmPassword: string}
 
   const [form, setForm] = useState({
     fullName: "",
     email: "",
     passwordHash: "",
     confirmPassword: "",
-    birthDate: "2025-10-01",
+    birthDate: "2025-10-01", 
   });
 
   const handleChange = (name: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCreateAccount = async () => {
-    setAppLoading(true);
-    try {
-      const data = await signUp(form);
-      if (data.status === true) {
-        setTempMail(form.email);
-        router.push("/verify");
-      } else {
-        console.log(data.message);
+    const handleCreateAccount = async () => {
+      // const {confirmPassword, ...body} = form
+      setAppLoading(true);
+      try {
+        const data = await signUp(form);
+        console.log(data);
+        if (data.status === true) {
+          setTempMail(form.email);
+          router.push("/verify");
+        } 
+      } catch (error: any) {
+        console.log(error.response.data);
+      } finally {
+        setAppLoading(false);
       }
-
-      // else alert mail has been registered
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setAppLoading(false);
-    }
-  };
+    };
 
   return (
     <View className="px-6 py-10 gap-6 bg-white-100 rounded-t-3xl -mt-6">

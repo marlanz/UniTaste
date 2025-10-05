@@ -1,3 +1,4 @@
+import { verifyAccount } from "@/api/services/auth.service";
 import CustomButton from "@/components/CustomButton";
 import CustomCodeInput from "@/components/CustomCodeInput";
 import { useAuth } from "@/providers/AuthProvider";
@@ -35,16 +36,16 @@ const Verify = () => {
     inputRefs[inputRefs.length - 1].current?.blur();
     const finalCode = code.join("");
     const body = { email: tempMail, otpCode: finalCode };
-    console.log(body);
-    // setAppLoading(true);
-    // try {
-    //   const data = await verifyAccount(body);
-    //   console.log(data);
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setAppLoading(false);
-    // }
+    // console.log(body);
+    setAppLoading(true);
+    try {
+      const data = await verifyAccount(body);
+      console.log(data);
+    } catch (error:any) {
+      console.log(error?.response.data.message);
+    } finally {
+      setAppLoading(false);
+    }
   };
 
   return (
@@ -70,7 +71,7 @@ const Verify = () => {
       </View>
 
       <View className="flex items-center gap-4 mt-4">
-        <CustomButton title="Xác nhận" onPress={() => handleCheckCode()} />
+        <CustomButton title="Xác nhận" onPress={() => handleCheckCode()} isLoading={appLoading} />
       </View>
     </View>
   );

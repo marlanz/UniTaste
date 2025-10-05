@@ -30,7 +30,7 @@ const CustomInput = ({
             placeholder={placeholder}
             placeholderTextColor={"#8F9098"}
             className={cn(
-              "p-4 font-msr text-base border border-gray-100 rounded-xl",
+              "p-4 font-msr-medium text-base border border-gray-100 rounded-xl height-[50px]",
               isFocused ? "border-orange-200" : "border-gray-100"
             )}
           />

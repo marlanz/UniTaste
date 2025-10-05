@@ -6,7 +6,7 @@ type LoginProps = {
   password: string;
 };
 
-type RegisterProps = {
+export type RegisterProps = {
   fullName: string;
   email: string;
   passwordHash: string;

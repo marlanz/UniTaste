@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const Login = () => {
-  const { appLoading, signIn } = useAuth();
+  const { appLoading, signIn, setAppLoading } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -18,11 +18,15 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
+    setAppLoading(true)
     try {
       await signIn(form.email, form.pw);
       router.replace("/");
     } catch (err) {
       console.log("Login failed", err);
+    }
+    finally{
+      setAppLoading(false)
     }
   };
 
@@ -49,7 +53,7 @@ const Login = () => {
         secureTextEntry={true}
       />
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() =>router.push('/forgot')}>
         <Text className="text-orange-200 font-msr-sbold text-sm">
           Quên mật khẩu?
         </Text>

@@ -55,10 +55,9 @@ export const verifyAccount = async (body: VerificationProps): Promise<any> => {
 
 export const sendResetPassworCode = async (email: string): Promise<any> => {
   try {
-    const response = await authApi.post(
-      `${ENDPOINTS.SEND_RESET_PW_CODE}`,
-      email
-    );
+    const response = await authApi.post(`${ENDPOINTS.SEND_RESET_PW_CODE}`, {
+      email,
+    });
     return response.data;
   } catch (error) {
     console.log("Error fetching at: ", ENDPOINTS.SEND_RESET_PW_CODE);

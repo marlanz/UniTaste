@@ -2,8 +2,10 @@ import { verifyAccount } from "@/api/services/auth.service";
 import CustomButton from "@/components/CustomButton";
 import CustomCodeInput from "@/components/CustomCodeInput";
 import { useAuth } from "@/providers/AuthProvider";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React, { useRef, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 const Verify = () => {
   const { tempMail, appLoading, setAppLoading } = useAuth();
@@ -41,6 +43,7 @@ const Verify = () => {
     try {
       const data = await verifyAccount(body);
       console.log(data);
+      router.push('/')
     } catch (error:any) {
       console.log(error?.response.data.message);
     } finally {
@@ -50,6 +53,17 @@ const Verify = () => {
 
   return (
     <View className="flex-1 px-6 py-10 gap-6 absolute w-full bg-white-100 top-[200] rounded-t-3xl -mt-6">
+      <Pressable className="flex-row gap-1 items-center border-b border-orange-200 self-start">
+        <Ionicons
+          name="chevron-back-outline"
+          size={16}
+          color={"#FD8200"}
+          className=""
+        />
+        <Text className="text-base font-msr-sbold text-orange-200 ">
+          Trở về
+        </Text>
+      </Pressable>
       <Text className="text-xl text-center font-msr-ebold">
         Nhập mã xác nhận 6 số được gửi tới
         <Text className="text-orange-100">

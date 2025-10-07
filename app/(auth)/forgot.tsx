@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 const Forgot = () => {
-  const { appLoading, setAppLoading, setTempMail } = useAuth();
+  const { appLoading, setAppLoading, setResetpwCode, setTempMail } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -21,9 +21,11 @@ const Forgot = () => {
   const handleSendCode = async () => {
     setAppLoading(true);
     try {
-      await sendResetPassworCode(form.email);
+      const data = await sendResetPassworCode(form.email);
       setTempMail(form.email);
+      setResetpwCode(data?.otp);
       router.replace("/verify");
+      console.log(data);
     } catch (error: any) {
       console.log(error.response);
     } finally {

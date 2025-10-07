@@ -52,6 +52,7 @@ const CustomInput = ({
               onChangeText={onChangeText}
               secureTextEntry={secureTextEntry}
               keyboardType={keyboardType}
+              autoComplete="off"
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               placeholder={placeholder}

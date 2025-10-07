@@ -10,24 +10,24 @@ const Login = () => {
 
   const [form, setForm] = useState({
     email: "",
-    pw: "",
+    password: "",
   });
 
-  const handleChange = (key: "email" | "pw", value: string) => {
+  const handleChange = (key: "email" | "password", value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleSubmit = async () => {
-    setAppLoading(true)
+    setAppLoading(true);
     try {
-      await signIn(form.email, form.pw);
+      await signIn(form.email, form.password);
       router.replace("/");
     } catch (err) {
       console.log("Login failed", err);
+    } finally {
+      setAppLoading(false);
     }
-    finally{
-      setAppLoading(false)
-    }
+    // console.log("hello");
   };
 
   return (
@@ -47,19 +47,23 @@ const Login = () => {
 
       <CustomInput
         placeholder="Nhập mật khẩu"
-        value={form.pw}
-        onChangeText={(text) => handleChange("pw", text)}
+        value={form.password}
+        onChangeText={(text) => handleChange("password", text)}
         label="Mật khẩu"
         secureTextEntry={true}
       />
 
-      <TouchableOpacity onPress={() =>router.push('/forgot')}>
+      <TouchableOpacity onPress={() => router.push("/forgot")}>
         <Text className="text-orange-200 font-msr-sbold text-sm">
           Quên mật khẩu?
         </Text>
       </TouchableOpacity>
       <View className="flex items-center gap-4">
-        <CustomButton title="Đăng nhập" onPress={handleSubmit} />
+        <CustomButton
+          title="Đăng nhập"
+          onPress={handleSubmit}
+          isLoading={appLoading}
+        />
         <View className="flex-row">
           <Text className="text-gray-200 font-msr-sbold text-sm">
             Chưa có tài khoản?

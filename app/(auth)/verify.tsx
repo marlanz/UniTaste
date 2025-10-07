@@ -8,7 +8,7 @@ import React, { useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 
 const Verify = () => {
-  const { tempMail, appLoading, setAppLoading } = useAuth();
+  const { tempMail, appLoading, setAppLoading, resetpwCode } = useAuth();
 
   const [code, setCode] = useState(["", "", "", "", "", ""]);
 
@@ -41,10 +41,14 @@ const Verify = () => {
     // console.log(body);
     setAppLoading(true);
     try {
+      if (resetpwCode) {
+        router.push("/change-password");
+        return;
+      }
       const data = await verifyAccount(body);
       console.log(data);
-      router.push('/')
-    } catch (error:any) {
+      router.push("/");
+    } catch (error: any) {
       console.log(error?.response.data.message);
     } finally {
       setAppLoading(false);
@@ -85,7 +89,11 @@ const Verify = () => {
       </View>
 
       <View className="flex items-center gap-4 mt-4">
-        <CustomButton title="Xác nhận" onPress={() => handleCheckCode()} isLoading={appLoading} />
+        <CustomButton
+          title="Xác nhận"
+          onPress={() => handleCheckCode()}
+          isLoading={appLoading}
+        />
       </View>
     </View>
   );

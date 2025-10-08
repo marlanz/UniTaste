@@ -5,6 +5,9 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
+      boxShadow: {
+        figma: "0px 2px 4px 0px rgba(0, 0, 0, 0.08)",
+      },
       colors: {
         orange: {
           100: "#EB4F26",

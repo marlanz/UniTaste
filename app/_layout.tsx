@@ -1,11 +1,30 @@
-import AuthProvider from "@/providers/AuthProvider";
+import AuthProvider, { useAuth } from "@/providers/AuthProvider";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
 import "./globals.css";
 
 SplashScreen.preventAutoHideAsync();
+
+function RootLayoutNav() {
+  const { appLoading } = useAuth();
+
+  if (appLoading) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  return (
+    <Stack
+      screenOptions={{ headerShown: false, animation: "ios_from_right" }}
+    />
+  );
+}
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -17,20 +36,14 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
+    if (loaded || error) SplashScreen.hideAsync();
   }, [loaded, error]);
 
-  if (!loaded && !error) {
-    return null;
-  }
+  if (!loaded && !error) return null;
 
   return (
     <AuthProvider>
-      <Stack
-        screenOptions={{ headerShown: false, animation: "ios_from_right" }}
-      />
+      <RootLayoutNav />
     </AuthProvider>
   );
 }

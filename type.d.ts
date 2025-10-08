@@ -47,3 +47,26 @@ interface GetMenuParams {
   category: string;
   query: string;
 }
+
+export interface Restaurant {
+  restaurantId: string;
+  name?: string;
+  address?: string;
+  latitude?: number;
+  longitude?: number;
+  googlePlaceId?: string;
+  phone?: string;
+  website?: string;
+  coverImageUrl?: string;
+  googleRating?: number;
+  openingHours?: string;
+  priceRangeId: number;
+  createdAt?: string;
+  status?: string;
+  bannerAds?: any[];
+  bannerBookings?: any[];
+  priceRange?: object;
+  categories?: any[];
+  features?: any[];
+  reviews?: object[];
+}

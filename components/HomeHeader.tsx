@@ -32,7 +32,7 @@ const HomeHeader = () => {
         </TouchableOpacity>
       </View>
       <View className="mt-6 flex-row items-center justify-between flex gap-2">
-        <Pressable className="flex-row items-center rounded-full p-4 bg-white-100 gap-2 flex-1">
+        <Pressable className="flex-row items-center p-4 bg-white-100 rounded-full gap-2 flex-1">
           <Ionicons name="search-outline" size={20} />
           <Text className=" font-msr text-xl text-gray-100">
             Tìm kiếm quán ăn

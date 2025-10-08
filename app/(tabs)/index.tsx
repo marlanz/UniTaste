@@ -1,27 +1,19 @@
-import CustomShopCard from "@/components/CustomShopCard";
 import HomeHeader from "@/components/HomeHeader";
 import PlaceSuggestions from "@/components/PlaceSuggestions";
 import { images } from "@/constants";
-import { restaurants } from "@/data/restaurants";
+
 import { useAuth } from "@/providers/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect } from "react";
-import {
-  FlatList,
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
 const Home = () => {
   const { isAuthenticated, appLoading } = useAuth();
 
   useEffect(() => {
     if (!appLoading && !isAuthenticated) {
-      router.replace("/login");
+      router.replace("/login"); //bug reported
     }
   }, [appLoading, isAuthenticated]);
 
@@ -55,14 +47,16 @@ const Home = () => {
             />
           </View>
         </View>
-        <FlatList
+        {/* <FlatList
           data={restaurants}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <CustomShopCard shop={item} isFeatured />}
+          renderItem={({ item }) => (
+            <CustomShopCard shop={item} isFeatured isVerticalLayout />
+          )}
           horizontal
           contentContainerClassName="gap-x-3 pl-4"
           showsHorizontalScrollIndicator={false}
-        />
+        /> */}
       </View>
       <View className="mt-[40px] bg-orange-100 p-6 gap-4">
         <View className="items-center flex-row justify-between">
@@ -130,7 +124,7 @@ const Home = () => {
             />
           </View>
         </View>
-        <FlatList
+        {/* <FlatList
           data={restaurants}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
@@ -139,7 +133,7 @@ const Home = () => {
           horizontal
           contentContainerClassName="gap-x-3 pl-4"
           showsHorizontalScrollIndicator={false}
-        />
+        /> */}
       </View>
       <View className="mt-[40px] gap-4">
         <View className="flex-row justify-between items-center  px-4">
@@ -157,7 +151,7 @@ const Home = () => {
             />
           </View>
         </View>
-        <FlatList
+        {/* <FlatList
           data={restaurants}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
@@ -166,7 +160,7 @@ const Home = () => {
           horizontal
           contentContainerClassName="gap-x-3 pl-4"
           showsHorizontalScrollIndicator={false}
-        />
+        /> */}
       </View>
     </ScrollView>
   );

@@ -6,19 +6,17 @@ import { Platform } from "react-native";
 
 const useProductionAPI = true;
 
-const PROD_API_URL = "https://unitasteapp1.onrender.com/api";
-
 // Dynamic base URL function
 const getBaseUrl = (service: "auth" | "restaurants") => {
   const baseUrls = {
     auth: useProductionAPI
-      ? PROD_API_URL
+      ? "https://unitasteapp1.onrender.com/api"
       : Platform.OS === "android"
         ? "http://10.0.2.2:5000/api"
         : "http://localhost:5000/api",
 
     restaurants: useProductionAPI
-      ? PROD_API_URL
+      ? "https://unitasteapp-restaurantservice.onrender.com/api"
       : Platform.OS === "android"
         ? "http://10.0.2.2:5003/api"
         : "http://localhost:5003/api",

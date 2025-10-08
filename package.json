@@ -17,6 +17,7 @@
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
+    "@vietmap/vietmap-gl-react-native": "^2.3.1",
     "axios": "^1.12.2",
     "clsx": "^2.1.1",
     "expo": "54.0.12",

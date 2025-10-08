@@ -37,7 +37,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [appLoading, setAppLoading] = useState(false);
+  const [appLoading, setAppLoading] = useState(true);
   const [tempMail, setTempMail] = useState("");
   const [resetpwCode, setResetpwCode] = useState("");
 
@@ -74,7 +74,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     console.log("👤 Current user state:", user);
-    console.log("state: ", resetpwCode);
   }, [user]);
 
   return (

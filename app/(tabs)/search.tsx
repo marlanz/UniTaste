@@ -4,8 +4,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { FlatList, Image, Pressable, Text, View } from "react-native";
 
+const myLocation = {
+  latitude: 10.84808,
+  longitude: 106.79807,
+};
+
 const Search = () => {
-  const { restaurants } = useRestaurant();
+  const { restaurants, calculateDistance, toNumber } = useRestaurant();
 
   return (
     <View className="bg-white-100 flex-1">
@@ -37,14 +42,26 @@ const Search = () => {
       </View>
       <FlatList
         data={restaurants}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
+        updateCellsBatchingPeriod={100}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.restaurantId.toString()}
         renderItem={({ item }) => (
-          <View className="flex-row gap-2">
-            <Image
-              source={{ uri: item.coverImageUrl }}
-              resizeMode="stretch"
-              className="w-[120px] h-[95px] rounded-[10px]"
-            />
+          <View className="flex-row gap-3">
+            <View className="relative">
+              <Image
+                source={{ uri: item.coverImageUrl }}
+                resizeMode="stretch"
+                className="w-[120px] h-[95px] rounded-[10px]"
+              />
+              <View className="flex-row gap-2 items-center absolute bg-white-100 rounded-bl-[10px] rounded-tr-[10px] px-2 bottom-0">
+                <Ionicons name="star" size={14} color={"#FD8200"} />
+                <Text className="font-msr-sbold text-sm">
+                  {item.googleRating}
+                </Text>
+              </View>
+            </View>
             <View className="flex-col justify-between">
               <View className="gap-1">
                 <Text
@@ -64,13 +81,20 @@ const Search = () => {
               </View>
               <View>
                 <View className="flex-row items-center gap-5">
-                  <Text className="text-xs text-orange-200 font-msr-sbold px-2 py-1 border border-orange-200 rounded-lg">
-                    {"Giá dễ chịu"}
-                  </Text>
-                  <View className="flex-row gap-2 items-center">
-                    <Ionicons name="star" size={16} color={"#FD8200"} />
-                    <Text className="font-msr-sbold text-sm">
-                      {item.googleRating}
+                  <View className="px-2 py-1 border border-orange-200 rounded-lg flex-row items-center gap-2">
+                    <Ionicons name="cash-outline" size={12} color={"#FD8200"} />
+                    <Text className="text-xs text-orange-200 font-msr-sbold ">
+                      {"Giá dễ chịu"}
+                    </Text>
+                  </View>
+                  <View className="flex-row items-center gap-1">
+                    <Ionicons name="navigate-outline" size={12} />
+                    <Text className="font-msr-medium text-sm ">
+                      {calculateDistance(myLocation, {
+                        latitude: toNumber(item.latitude),
+                        longitude: toNumber(item.longitude),
+                      })}{" "}
+                      km
                     </Text>
                   </View>
                 </View>
@@ -79,6 +103,7 @@ const Search = () => {
           </View>
         )}
         contentContainerClassName="px-4 mt-[44px] gap-y-6"
+        contentContainerStyle={{ paddingBottom: 20 }}
       />
     </View>
   );

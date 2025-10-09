@@ -70,3 +70,8 @@ export interface Restaurant {
   features?: any[];
   reviews?: object[];
 }
+
+export interface Location {
+  latitude: number;
+  longitude: number;
+}

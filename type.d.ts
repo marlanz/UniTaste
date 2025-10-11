@@ -26,12 +26,6 @@ interface CustomInputProps {
   keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
 }
 
-interface ProfileFieldProps {
-  label: string;
-  value: string;
-  icon: ImageSourcePropType;
-}
-
 interface CreateUserPrams {
   email: string;
   password: string;
@@ -42,12 +36,6 @@ interface SignInParams {
   email: string;
   password: string;
 }
-
-interface GetMenuParams {
-  category: string;
-  query: string;
-}
-
 export interface Restaurant {
   restaurantId: string;
   name?: string;
@@ -66,11 +54,16 @@ export interface Restaurant {
   bannerAds?: any[];
   bannerBookings?: any[];
   priceRange?: object;
-  categories?: any[];
+  categories: Category[];
   features?: any[];
   reviews?: object[];
 }
 
+export interface Category {
+  categoryId: number;
+  name: string;
+  sourceType: string;
+}
 export interface Location {
   latitude: number;
   longitude: number;

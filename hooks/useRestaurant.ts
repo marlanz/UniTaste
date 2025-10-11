@@ -6,6 +6,21 @@ import {
 import { Location, Restaurant } from "@/type";
 import { useCallback, useState } from "react";
 
+const PRICE_RANGE_LABELS: Record<number, string> = {
+  1: "Giá dễ chịu",
+  2: "Giá hợp lý",
+  3: "Giá cao cấp",
+};
+
+const CATEGORY_LABELS: Record<number, string> = {
+  1: "Quán cà phê",
+  2: "Nhà hàng",
+  3: "Quán ăn",
+  4: "Cửa hàng",
+  5: "",
+  6: "Nhà hàng",
+};
+
 export const useRestaurant = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -32,6 +47,14 @@ export const useRestaurant = () => {
   const toNumber = useCallback((value: string | number | undefined) => {
     const num = parseFloat(String(value));
     return isNaN(num) ? 0 : num;
+  }, []);
+
+  const parseRestaurantPriceRange = useCallback((priceRange: number) => {
+    return PRICE_RANGE_LABELS[priceRange];
+  }, []);
+
+  const parseRestaurantCategory = useCallback((categoryId: number) => {
+    return CATEGORY_LABELS[categoryId];
   }, []);
 
   const fetchRestaurants = useCallback(async () => {
@@ -82,5 +105,7 @@ export const useRestaurant = () => {
     calculateDistance,
     toNumber,
     handleResetRestaurants,
+    parseRestaurantPriceRange,
+    parseRestaurantCategory,
   };
 };

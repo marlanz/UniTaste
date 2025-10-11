@@ -24,6 +24,8 @@ const Search = () => {
     searchByNameDB,
     loading,
     handleResetRestaurants,
+    parseRestaurantPriceRange,
+    parseRestaurantCategory,
   } = useRestaurant();
 
   const [search, setSearch] = useState({
@@ -50,14 +52,10 @@ const Search = () => {
       currentPage: search.currentPage,
       pageSize: 10,
     });
-
-    // console.log(search.name);
   };
 
   const handleLoadMore = async () => {
     if (loading || !hasMore || restaurants.length === 0) return;
-
-    console.log("loading more data", restaurants);
 
     const nextPage = search.currentPage + 1;
 
@@ -68,7 +66,7 @@ const Search = () => {
     });
 
     if (data.length === 0) {
-      setHasMore(false); // không còn dữ liệu
+      setHasMore(false);
     } else {
       setSearch((prev) => ({ ...prev, currentPage: nextPage }));
     }
@@ -113,61 +111,83 @@ const Search = () => {
         onEndReached={search.name ? handleLoadMore : undefined}
         onEndReachedThreshold={0.5}
         renderItem={({ item }) => (
-          <View className="flex-row gap-3">
-            <View className="relative">
-              <Image
-                source={{ uri: item.coverImageUrl }}
-                resizeMode="stretch"
-                className="w-[120px] h-[95px] rounded-[10px]"
-              />
-              <View className="flex-row gap-2 items-center absolute bg-white-100 rounded-bl-[10px] rounded-tr-[10px] px-2 bottom-0">
-                <Ionicons name="star" size={14} color={"#FD8200"} />
-                <Text className="font-msr-sbold text-sm">
-                  {item.googleRating}
-                </Text>
+          <View className="flex-col gap-2">
+            <View className="flex-row gap-3">
+              <View className="relative">
+                <Image
+                  source={{
+                    uri: item.coverImageUrl || "https://placehold.co/100",
+                  }}
+                  resizeMode="stretch"
+                  className="w-[100px] h-[70px] size-[64px] rounded-[10px]"
+                />
+                <View className="flex-row gap-2 items-center absolute bg-white-100 rounded-bl-[10px] rounded-tr-[10px] px-2 bottom-0">
+                  <Ionicons name="star" size={14} color={"#FD8200"} />
+                  <Text className="font-msr-sbold text-sm">
+                    {item.googleRating}
+                  </Text>
+                </View>
+              </View>
+              <View className="flex-col justify-between">
+                <View className="gap-1">
+                  <Text
+                    className="font-msr-sbold text-[18px] max-w-[228px]"
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                  >
+                    {item.name}
+                  </Text>
+
+                  <Text
+                    className="font-msr-medium text-base text-gray-100 max-w-[228px]"
+                    numberOfLines={2}
+                  >
+                    {item.address}
+                  </Text>
+                </View>
               </View>
             </View>
-            <View className="flex-col justify-between">
-              <View className="gap-1">
-                <Text
-                  className="font-msr-sbold text-base max-w-[228px]"
-                  ellipsizeMode="tail"
-                  numberOfLines={1}
+            <View className="flex-row justify-between pr-4">
+              <View className="flex-row items-center gap-3">
+                <View
+                  className="px-3 py-1 rounded-full"
+                  style={{ backgroundColor: "rgb(253,130,0,0.1)" }}
                 >
-                  {item.name}
-                </Text>
-
-                <Text
-                  className="font-msr-medium text-sm text-gray-100 max-w-[228px]"
-                  numberOfLines={2}
-                >
-                  {item.address}
-                </Text>
-              </View>
-              <View>
-                <View className="flex-row items-center gap-5">
-                  <View className="px-2 py-1 border border-orange-200 rounded-lg flex-row items-center gap-2">
-                    <Ionicons name="cash-outline" size={12} color={"#FD8200"} />
-                    <Text className="text-xs text-orange-200 font-msr-sbold ">
-                      {"Giá dễ chịu"}
-                    </Text>
-                  </View>
-                  <View className="flex-row items-center gap-1">
-                    <Ionicons name="navigate-outline" size={12} />
-                    <Text className="font-msr-medium text-sm ">
-                      {calculateDistance(myLocation, {
-                        latitude: toNumber(item.latitude),
-                        longitude: toNumber(item.longitude),
-                      })}{" "}
-                      km
-                    </Text>
-                  </View>
+                  <Text className="text-sm text-orange-200 font-msr-sbold ">
+                    {parseRestaurantCategory(item?.categories[0]?.categoryId)}
+                  </Text>
                 </View>
+                <View className="px-2 py-1 border border-orange-200 rounded-full flex-row items-center gap-2">
+                  <Ionicons name="cash-outline" size={12} color={"#FD8200"} />
+                  <Text className="text-sm text-orange-200 font-msr-sbold ">
+                    {parseRestaurantPriceRange(item?.priceRangeId)}
+                  </Text>
+                </View>
+              </View>
+              <View className="flex-row items-center gap-1">
+                <Ionicons name="compass-outline" size={16} />
+                <Text className="font-msr-sbold text-sm ">
+                  Cách{" "}
+                  {calculateDistance(myLocation, {
+                    latitude: toNumber(item.latitude),
+                    longitude: toNumber(item.longitude),
+                  })}{" "}
+                  km
+                </Text>
               </View>
             </View>
           </View>
         )}
-        contentContainerClassName="px-4 mt-[44px] gap-y-6"
+        contentContainerClassName="px-4 mt-[44px]"
+        ItemSeparatorComponent={() => (
+          <View
+            style={{
+              height: 1,
+              backgroundColor: "#E5E5E5", // màu xám nhạt
+              marginVertical: 16, // tạo khoảng cách giữa các card
+            }}
+          />
+        )}
         contentContainerStyle={{ paddingBottom: 20 }}
         ListFooterComponent={
           loading ? <Text className="text-center py-4">Đang tải...</Text> : null

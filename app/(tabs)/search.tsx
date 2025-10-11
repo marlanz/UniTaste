@@ -1,8 +1,15 @@
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
-import { FlatList, Image, Pressable, Text, View } from "react-native";
+import React, { useState } from "react";
+import {
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 const myLocation = {
   latitude: 10.84808,
@@ -10,8 +17,62 @@ const myLocation = {
 };
 
 const Search = () => {
-  const { restaurants, calculateDistance, toNumber } = useRestaurant();
+  const {
+    restaurants,
+    calculateDistance,
+    toNumber,
+    searchByNameDB,
+    loading,
+    handleResetRestaurants,
+  } = useRestaurant();
 
+  const [search, setSearch] = useState({
+    name: "",
+    currentPage: 1,
+  });
+
+  const [hasMore, setHasMore] = useState(true);
+
+  const handleChange = (value: string) => {
+    setSearch({ name: value, currentPage: 1 });
+    setHasMore(true);
+    // handleResetRestaurants();
+  };
+
+  const handleSearch = async () => {
+    if (!search.name.trim()) {
+      return;
+    }
+    setHasMore(true);
+    handleResetRestaurants();
+    await searchByNameDB({
+      name: search.name,
+      currentPage: search.currentPage,
+      pageSize: 10,
+    });
+
+    // console.log(search.name);
+  };
+
+  const handleLoadMore = async () => {
+    if (loading || !hasMore || restaurants.length === 0) return;
+
+    console.log("loading more data", restaurants);
+
+    const nextPage = search.currentPage + 1;
+
+    const data = await searchByNameDB({
+      name: search.name,
+      currentPage: nextPage,
+      pageSize: 10,
+    });
+
+    if (data.length === 0) {
+      setHasMore(false); // không còn dữ liệu
+    } else {
+      setSearch((prev) => ({ ...prev, currentPage: nextPage }));
+    }
+  };
   return (
     <View className="bg-white-100 flex-1">
       <LinearGradient
@@ -30,23 +91,27 @@ const Search = () => {
         </View>
       </LinearGradient>
       <View className="flex-row items-center justify-between flex gap-2 px-5 absolute top-[115] z-10">
-        <Pressable className="flex-row items-center p-4 bg-white-100 rounded-[15px] gap-2 flex-1 shadow-figma">
+        <View className="flex-row items-center p-4 bg-white-100 rounded-[15px] gap-3 flex-1 shadow-figma">
           <Ionicons name="search-outline" size={20} />
-          <Text className=" font-msr text-xl text-gray-100">
-            Tìm kiếm quán ăn
-          </Text>
-        </Pressable>
+          <TextInput
+            placeholder="Tìm kiếm quán ăn"
+            className="font-msr-medium text-xl flex-1 pb-1"
+            value={search.name}
+            onChangeText={handleChange}
+            onSubmitEditing={handleSearch}
+            returnKeyType="search"
+          />
+        </View>
         <Pressable className="p-4 bg-white-100 rounded-[15px] shadow-figma">
           <Ionicons name="map-outline" size={26} color="#FD8200" />
         </Pressable>
       </View>
       <FlatList
         data={restaurants}
-        initialNumToRender={5}
-        maxToRenderPerBatch={5}
-        updateCellsBatchingPeriod={100}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.restaurantId.toString()}
+        onEndReached={search.name ? handleLoadMore : undefined}
+        onEndReachedThreshold={0.5}
         renderItem={({ item }) => (
           <View className="flex-row gap-3">
             <View className="relative">
@@ -104,6 +169,9 @@ const Search = () => {
         )}
         contentContainerClassName="px-4 mt-[44px] gap-y-6"
         contentContainerStyle={{ paddingBottom: 20 }}
+        ListFooterComponent={
+          loading ? <Text className="text-center py-4">Đang tải...</Text> : null
+        }
       />
     </View>
   );

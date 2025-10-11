@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       boxShadow: {
         figma: "0px 2px 4px 0px rgba(0, 0, 0, 0.08)",
+        detail: "0px -4px 4px 0px rgba(0, 0, 0, 0.02)",
       },
       colors: {
         orange: {
@@ -16,12 +17,17 @@ module.exports = {
         gray: {
           100: "#8F9098",
           200: "#71727A",
+          300: "#F3F3F3",
+          DISABLED: "#A0A0A0",
         },
         dark: {
           100: "#1F2024",
         },
         white: {
           100: "#FFFFFF",
+        },
+        green: {
+          100: "#2A9083",
         },
         error: "#F14141",
         success: "#2F9B65",

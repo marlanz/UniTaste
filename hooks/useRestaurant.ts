@@ -1,5 +1,6 @@
 import {
   getAllRestaurants,
+  getRestaurantDetail,
   SearchParams,
   searchRestaurants,
 } from "@/api/services/restaurant.services";
@@ -21,11 +22,19 @@ const CATEGORY_LABELS: Record<number, string> = {
   6: "Nhà hàng",
 };
 
+const myLocation = {
+  latitude: 10.84808,
+  longitude: 106.79807,
+};
+
 export const useRestaurant = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [restaurantDetail, setRestaurantDetail] = useState<Restaurant | null>(
+    null
+  );
 
   const calculateDistance = useCallback(
     (loc1: Location, loc2: Location): number => {
@@ -56,6 +65,15 @@ export const useRestaurant = () => {
   const parseRestaurantCategory = useCallback((categoryId: number) => {
     return CATEGORY_LABELS[categoryId];
   }, []);
+
+  const parseDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleString("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
 
   const fetchRestaurants = useCallback(async () => {
     setLoading(true);
@@ -88,17 +106,46 @@ export const useRestaurant = () => {
     }
   }, []);
 
+  const fetchRestaurantDetail = async (id: number) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getRestaurantDetail(id);
+      setRestaurantDetail(data);
+    } catch (err) {
+      console.log("❌ Failed to get detail restaurant: ", err);
+      setError("Failed to get detail restaurant");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const toggleFavorite = async (restaurantId: string) => {};
 
   const handleResetRestaurants = () => {
     setRestaurants([]);
   };
 
+  const sortedRestaurants = [...restaurants].sort((a, b) => {
+    const distanceA = calculateDistance(myLocation, {
+      latitude: toNumber(a.latitude),
+      longitude: toNumber(a.longitude),
+    });
+    const distanceB = calculateDistance(myLocation, {
+      latitude: toNumber(b.latitude),
+      longitude: toNumber(b.longitude),
+    });
+
+    return distanceA - distanceB;
+  });
+
   return {
     restaurants,
+    sortedRestaurants,
     favorites,
     loading,
     error,
+    restaurantDetail,
     fetchRestaurants,
     searchByNameDB,
     toggleFavorite,
@@ -107,5 +154,7 @@ export const useRestaurant = () => {
     handleResetRestaurants,
     parseRestaurantPriceRange,
     parseRestaurantCategory,
+    fetchRestaurantDetail,
+    parseDate,
   };
 };

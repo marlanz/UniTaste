@@ -56,7 +56,7 @@ export interface Restaurant {
   priceRange?: object;
   categories: Category[];
   features?: any[];
-  reviews?: object[];
+  reviews?: Review[];
 }
 
 export interface Category {
@@ -67,4 +67,15 @@ export interface Category {
 export interface Location {
   latitude: number;
   longitude: number;
+}
+
+export interface Review {
+  reviewId: number;
+  restaurantId: number;
+  userName: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+  photoReviews: any[];
+  restaurant: Restaurant;
 }

@@ -6,5 +6,6 @@ export const ENDPOINTS = {
   CHECK_RESET_PW_CODE: "/Users/confirm-reset-password",
   GET_ALL_RESTAURANTS: "/restaurants/get-all-restaurant",
   SEARCH_RESTAURANTS_DB: "/Restaurants/search-by-name-with-paging",
+  GET_RESTAURANT_DETAIL: "/Restaurants/get-all-restaurant-by-id",
   // SEARCH_RESTAURANTS_GOOGLE: "/Restaurants/search-by-name-with-paging",
 };

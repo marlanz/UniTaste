@@ -35,3 +35,17 @@ export const searchRestaurants = async (params: SearchParams): Promise<any> => {
     );
   }
 };
+
+export const getRestaurantDetail = async (id: number) => {
+  try {
+    const response = await restaurantApi.get(ENDPOINTS.GET_RESTAURANT_DETAIL, {
+      params: { id },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.log("Error fetching restaurant detail: ", error);
+    throw new Error(
+      error.response?.data?.message || "Failed to get restaurant detail"
+    );
+  }
+};

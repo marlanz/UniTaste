@@ -1,6 +1,7 @@
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   FlatList,
@@ -19,6 +20,7 @@ const myLocation = {
 const Search = () => {
   const {
     restaurants,
+    sortedRestaurants,
     calculateDistance,
     toNumber,
     searchByNameDB,
@@ -100,18 +102,29 @@ const Search = () => {
             returnKeyType="search"
           />
         </View>
-        <Pressable className="p-4 bg-white-100 rounded-[15px] shadow-figma">
+        <Pressable
+          className="p-4 bg-white-100 rounded-[15px] shadow-figma"
+          onPress={() => router.push("/map")}
+        >
           <Ionicons name="map-outline" size={26} color="#FD8200" />
         </Pressable>
       </View>
       <FlatList
-        data={restaurants}
+        data={sortedRestaurants}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.restaurantId.toString()}
         onEndReached={search.name ? handleLoadMore : undefined}
         onEndReachedThreshold={0.5}
         renderItem={({ item }) => (
-          <View className="flex-col gap-2">
+          <Pressable
+            className="flex-col gap-2"
+            onPress={() =>
+              router.push({
+                pathname: "/(search)/[id]",
+                params: { id: String(item.restaurantId) },
+              })
+            }
+          >
             <View className="flex-row gap-3">
               <View className="relative">
                 <Image
@@ -176,7 +189,7 @@ const Search = () => {
                 </Text>
               </View>
             </View>
-          </View>
+          </Pressable>
         )}
         contentContainerClassName="px-4 mt-[44px]"
         ItemSeparatorComponent={() => (

@@ -23,7 +23,7 @@ export default function UserLocationMap() {
       if (status !== "granted") {
         Alert.alert(
           "Permission Denied",
-          "Allow location access to use this feature."
+          "Allow locatiofn access to use this feature."
         );
         return;
       }

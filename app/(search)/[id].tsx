@@ -169,7 +169,7 @@ const RestaurantDetail = () => {
                 <View className="review-info flex-1">
                   <View className="header justify-between flex-row">
                     <View className="flex-col gap-1">
-                      <Text className="text-[18px] font-msr-sbold">
+                      <Text className="text-base font-msr-sbold">
                         {review?.userName}
                       </Text>
                       <Text className="text-sm text-gray-100 font-msr-medium">

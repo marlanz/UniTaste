@@ -1,6 +1,8 @@
+import { Ionicons } from "@expo/vector-icons";
 import * as Location from "expo-location";
+import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, Pressable, StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
@@ -36,14 +38,14 @@ export default function UserLocationMap() {
       mapRef.current?.animateToRegion({
         latitude: current.coords.latitude,
         longitude: current.coords.longitude,
-        latitudeDelta: 0.5,
-        longitudeDelta: 0.5,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001,
       });
     })();
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1">
       <MapView
         ref={mapRef}
         style={styles.map}
@@ -70,7 +72,7 @@ export default function UserLocationMap() {
                 longitude: location.coords.longitude,
               }}
               destination={DALAT_COORDS}
-              apikey={GOOGLE_MAPS_API_KEY}
+              apikey={"GOOGLE_API_KEY" as string}
               strokeWidth={5}
               strokeColor="blue"
               mode="DRIVING"
@@ -84,11 +86,42 @@ export default function UserLocationMap() {
           </>
         )}
       </MapView>
+
+      {/* ✅ Overlay your buttons on top of the map */}
+      <View style={styles.overlayContainer}>
+        <Pressable
+          style={[styles.iconButton, { left: 20 }]}
+          onPress={() => router.back()}
+        >
+          <Ionicons name="chevron-back-outline" size={24} color={"black"} />
+        </Pressable>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  map: { width: "100%", height: "100%" },
+  map: {
+    width: "100%",
+    height: "100%",
+  },
+  overlayContainer: {
+    position: "absolute",
+    top: 60,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+  },
+  iconButton: {
+    padding: 10,
+    borderRadius: 50,
+    backgroundColor: "white",
+    // elevation: 5, // for Android shadow
+    // shadowColor: "#000",
+    // shadowOpacity: 0.2,
+    // shadowRadius: 3,
+    // shadowOffset: { width: 0, height: 1 }, // iOS shadow
+  },
 });

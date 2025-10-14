@@ -23,3 +23,5 @@ export const images = {
   premium2,
   premium1,
 };
+
+export const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_API_KEY || "";

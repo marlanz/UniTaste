@@ -1,3 +1,4 @@
+import CustomDivider from "@/components/CustomDivider";
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -102,12 +103,12 @@ const Search = () => {
             returnKeyType="search"
           />
         </View>
-        <Pressable
+        {/* <Pressable
           className="p-4 bg-white-100 rounded-[15px] shadow-figma"
           onPress={() => router.push("/map")}
         >
           <Ionicons name="map-outline" size={26} color="#FD8200" />
-        </Pressable>
+        </Pressable> */}
       </View>
       <FlatList
         data={sortedRestaurants}
@@ -132,7 +133,7 @@ const Search = () => {
                     uri: item.coverImageUrl || "https://placehold.co/100",
                   }}
                   resizeMode="stretch"
-                  className="w-[100px] h-[70px] size-[64px] rounded-[10px]"
+                  className="w-[100px] h-[70px]  rounded-[10px]"
                 />
                 <View className="flex-row gap-2 items-center absolute bg-white-100 rounded-bl-[10px] rounded-tr-[10px] px-2 bottom-0">
                   <Ionicons name="star" size={14} color={"#FD8200"} />
@@ -141,10 +142,10 @@ const Search = () => {
                   </Text>
                 </View>
               </View>
-              <View className="flex-col justify-between">
-                <View className="gap-1">
+              <View className="flex-col justify-between flex-1">
+                <View className="gap-1 ">
                   <Text
-                    className="font-msr-sbold text-[18px] max-w-[228px]"
+                    className="font-msr-sbold text-[18px] "
                     ellipsizeMode="tail"
                     numberOfLines={1}
                   >
@@ -179,7 +180,7 @@ const Search = () => {
               </View>
               <View className="flex-row items-center gap-1">
                 <Ionicons name="compass-outline" size={16} />
-                <Text className="font-msr-sbold text-sm ">
+                <Text className="font-msr-medium text-sm ">
                   Cách{" "}
                   {calculateDistance(myLocation, {
                     latitude: toNumber(item.latitude),
@@ -192,15 +193,7 @@ const Search = () => {
           </Pressable>
         )}
         contentContainerClassName="px-4 mt-[44px]"
-        ItemSeparatorComponent={() => (
-          <View
-            style={{
-              height: 1,
-              backgroundColor: "#E5E5E5", // màu xám nhạt
-              marginVertical: 16, // tạo khoảng cách giữa các card
-            }}
-          />
-        )}
+        ItemSeparatorComponent={() => <CustomDivider />}
         contentContainerStyle={{ paddingBottom: 20 }}
         ListFooterComponent={
           loading ? <Text className="text-center py-4">Đang tải...</Text> : null

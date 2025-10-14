@@ -201,7 +201,10 @@ const RestaurantDetail = () => {
               </Text>
             </View>
           </View>
-          <Pressable className="p-4 rounded-[8px] bg-orange-200">
+          <Pressable
+            className="p-4 rounded-[8px] bg-orange-200"
+            onPress={() => router.push(`/(search)/map/${id}`)}
+          >
             <Text className="text-base font-msr-sbold text-white-100">
               Xem bảng đồ
             </Text>

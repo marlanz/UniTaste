@@ -200,7 +200,7 @@ const RestaurantDetail = () => {
             <View className="flex-row items-center gap-2">
               <Ionicons name="location-outline" size={16} color={"#2A9083"} />
               <Text className="text-sm font-msr-medium text-gray-100">
-                {address}
+                {!address ? "Đang lấy địa chỉ..." : address || "Không xác định"}
               </Text>
             </View>
           </View>

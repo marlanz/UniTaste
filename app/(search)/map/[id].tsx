@@ -167,9 +167,9 @@ const MapDetail = () => {
           <CustomDivider />
           <View className="mb-2 flex-row items-center gap-6 justify-between">
             <View className="flex-1 flex-col">
-              <Text className="font-msr-sbold text-base mb-1">
+              {/* <Text className="font-msr-sbold text-base mb-1">
                 Cách bạn 2.0 km
-              </Text>
+              </Text> */}
               <View className="flex-row items-center">
                 <Ionicons name="location-outline" size={16} color={"#2A9083"} />
                 <Text

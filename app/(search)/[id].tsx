@@ -1,4 +1,5 @@
 import { images } from "@/constants";
+import { useMap } from "@/hooks/useMap";
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
@@ -15,6 +16,8 @@ const RestaurantDetail = () => {
     parseRestaurantPriceRange,
     parseDate,
   } = useRestaurant();
+
+  const { address } = useMap();
 
   const { id } = useLocalSearchParams();
 
@@ -192,17 +195,17 @@ const RestaurantDetail = () => {
       </ScrollView>
       <View className="show-direction-container absolute bottom-0 bg-white-100 p-5 w-full flex-row items-center justify-between shadow-detail">
         <View className="mb-2 flex-row items-center justify-between w-full">
-          <View className="flex-col gap-1">
-            <Text className="font-msr-sbold text-[18px]">Cách bạn 2.0 km</Text>
+          <View className="flex-col gap-2 flex-1 ">
+            {/* <Text className="font-msr-sbold text-[18px]">Cách bạn 2.0 km</Text> */}
             <View className="flex-row items-center gap-2">
               <Ionicons name="location-outline" size={16} color={"#2A9083"} />
               <Text className="text-sm font-msr-medium text-gray-100">
-                150 Nguyễn Xí, Bình Thạnh
+                {address}
               </Text>
             </View>
           </View>
           <Pressable
-            className="p-4 rounded-[8px] bg-orange-200"
+            className="p-4 rounded-[8px] bg-orange-200 w-[40%] items-center justify-center"
             onPress={() => router.push(`/(search)/map/${id}`)}
           >
             <Text className="text-base font-msr-sbold text-white-100">

@@ -18,6 +18,7 @@ export interface User {
   token: string;
   email: string;
   fullName: string;
+  userId: number;
 }
 
 interface AuthContextType {

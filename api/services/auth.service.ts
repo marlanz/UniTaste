@@ -65,6 +65,16 @@ export const sendResetPassworCode = async (email: string): Promise<any> => {
   }
 };
 
+export const getUserInfo = async (id: number): Promise<any> => {
+  try {
+    const response = await authApi.get(`${ENDPOINTS.GET_USER_PROFILE}/${id}`);
+    return response.data;
+  } catch (error: any) {
+    console.log("Error fetching profile detail: ", error);
+    throw new Error(error.response?.data?.message || "Failed to get profile");
+  }
+};
+
 export const checkResetPassworCode = async (
   body: ConfirmResetProps
 ): Promise<any> => {

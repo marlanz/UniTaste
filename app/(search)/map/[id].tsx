@@ -170,10 +170,10 @@ const MapDetail = () => {
               {/* <Text className="font-msr-sbold text-base mb-1">
                 Cách bạn 2.0 km
               </Text> */}
-              <View className="flex-row items-center">
+              <View className="flex-row items-center gap-2">
                 <Ionicons name="location-outline" size={16} color={"#2A9083"} />
                 <Text
-                  className="ml-2 text-sm font-msr-medium text-gray-100"
+                  className="text-sm font-msr-medium text-gray-100"
                   numberOfLines={2}
                 >
                   {address}

@@ -11,7 +11,6 @@ const RestaurantDetail = () => {
   const {
     fetchRestaurantDetail,
     restaurantDetail,
-    loading,
     parseRestaurantCategory,
     parseRestaurantPriceRange,
     parseDate,
@@ -195,17 +194,17 @@ const RestaurantDetail = () => {
       </ScrollView>
       <View className="show-direction-container absolute bottom-0 bg-white-100 p-5 w-full flex-row items-center justify-between shadow-detail">
         <View className="mb-2 flex-row items-center justify-between w-full">
-          <View className="flex-col gap-2 flex-1 ">
-            {/* <Text className="font-msr-sbold text-[18px]">Cách bạn 2.0 km</Text> */}
-            <View className="flex-row items-center gap-2">
-              <Ionicons name="location-outline" size={16} color={"#2A9083"} />
-              <Text className="text-sm font-msr-medium text-gray-100">
-                {!address ? "Đang lấy địa chỉ..." : address || "Không xác định"}
-              </Text>
-            </View>
+          <View className="flex-1 mr-8">
+            <Text className="text-base font-msr-sbold">Vị trí của bạn</Text>
+            <Text
+              className="text-sm font-msr-medium text-gray-100"
+              numberOfLines={2}
+            >
+              {!address ? "Đang cập nhật địa chỉ" : address}
+            </Text>
           </View>
           <Pressable
-            className="p-4 rounded-[8px] bg-orange-200 w-[40%] items-center justify-center"
+            className="p-4 rounded-[8px] bg-orange-200 items-center justify-center"
             onPress={() => router.push(`/(search)/map/${id}`)}
           >
             <Text className="text-base font-msr-sbold text-white-100">

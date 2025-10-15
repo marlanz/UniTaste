@@ -165,20 +165,15 @@ const MapDetail = () => {
             </View>
           </View>
           <CustomDivider />
-          <View className="mb-2 flex-row items-center gap-6 justify-between">
-            <View className="flex-1 flex-col">
-              {/* <Text className="font-msr-sbold text-base mb-1">
-                Cách bạn 2.0 km
-              </Text> */}
-              <View className="flex-row items-center gap-2">
-                <Ionicons name="location-outline" size={16} color={"#2A9083"} />
-                <Text
-                  className="text-sm font-msr-medium text-gray-100"
-                  numberOfLines={2}
-                >
-                  {address}
-                </Text>
-              </View>
+          <View className="mb-2 flex-row items-center justify-between">
+            <View className="flex-1 mr-6">
+              <Text className="text-base font-msr-sbold">Vị trí của bạn</Text>
+              <Text
+                className="text-sm font-msr-medium text-gray-100"
+                numberOfLines={2}
+              >
+                {!address ? "Đang cập nhật địa chỉ..." : address}
+              </Text>
             </View>
 
             <Pressable

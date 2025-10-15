@@ -1,4 +1,5 @@
 import CustomDivider from "@/components/CustomDivider";
+import { useMap } from "@/hooks/useMap";
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -30,6 +31,8 @@ const Search = () => {
     parseRestaurantPriceRange,
     parseRestaurantCategory,
   } = useRestaurant();
+
+  const { address } = useMap();
 
   const [search, setSearch] = useState({
     name: "",
@@ -86,8 +89,11 @@ const Search = () => {
           <Text className="font-msr-medium text-base text-white-100">
             Vị trí hiện tại của bạn
           </Text>
-          <Text className="font-msr-bold text-base text-white-100">
-            Long Thạnh Mỹ, Thành phố Thủ Đức
+          <Text
+            className="font-msr-bold text-base text-white-100"
+            numberOfLines={1}
+          >
+            {address}
           </Text>
         </View>
       </LinearGradient>

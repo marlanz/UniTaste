@@ -42,7 +42,7 @@ const RestaurantDetail = () => {
   useEffect(() => {
     fetchRestaurantDetail(restaurantId);
     // console.log("api called again");
-  }, [restaurantId]);
+  }, [restaurantId, fetchRestaurantDetail]);
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>

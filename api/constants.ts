@@ -8,5 +8,6 @@ export const ENDPOINTS = {
   SEARCH_RESTAURANTS_DB: "/Restaurants/search-by-name-with-paging",
   GET_RESTAURANT_DETAIL: "/Restaurants/get-all-restaurant-by-id",
   GET_USER_PROFILE: "/Users/get-profile-user-by-id",
+  GET_RESTAURANT_BY_CATEGORY: "/Restaurants/search-by-categoryId-with-paging",
   // SEARCH_RESTAURANTS_GOOGLE: "/Restaurants/search-by-name-with-paging",
 };

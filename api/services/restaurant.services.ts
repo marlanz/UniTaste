@@ -7,6 +7,12 @@ export type SearchParams = {
   pageSize: number;
 };
 
+export type RestaurantParams = {
+  categoryId: number;
+  currentPage: number;
+  pageSize: number;
+};
+
 export const getAllRestaurants = async (): Promise<any> => {
   try {
     const response = await restaurantApi.get(
@@ -36,7 +42,7 @@ export const searchRestaurants = async (params: SearchParams): Promise<any> => {
   }
 };
 
-export const getRestaurantDetail = async (id: number) => {
+export const getRestaurantDetail = async (id: number): Promise<any> => {
   try {
     const response = await restaurantApi.get(ENDPOINTS.GET_RESTAURANT_DETAIL, {
       params: { id },
@@ -47,5 +53,22 @@ export const getRestaurantDetail = async (id: number) => {
     throw new Error(
       error.response?.data?.message || "Failed to get restaurant detail"
     );
+  }
+};
+
+export const getRestaurantByCategory = async (
+  params: RestaurantParams
+): Promise<any> => {
+  const { categoryId, currentPage, pageSize } = params;
+  try {
+    const response = await restaurantApi.get(
+      ENDPOINTS.GET_RESTAURANT_BY_CATEGORY,
+      {
+        params: { categoryId, currentPage, pageSize },
+      }
+    );
+    return response?.data;
+  } catch (err) {
+    console.log("Error fetching restaurant by category: ", err);
   }
 };

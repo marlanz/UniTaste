@@ -1,6 +1,8 @@
 import {
   getAllRestaurants,
+  getRestaurantByCategory,
   getRestaurantDetail,
+  RestaurantParams,
   SearchParams,
   searchRestaurants,
 } from "@/api/services/restaurant.services";
@@ -96,6 +98,7 @@ export const useRestaurant = () => {
       setRestaurants((prev) =>
         params.currentPage === 1 ? data.items : [...prev, ...data.items]
       );
+
       return data.items;
     } catch (err: any) {
       console.log("❌ Failed to search restaurants:", err);
@@ -106,7 +109,7 @@ export const useRestaurant = () => {
     }
   }, []);
 
-  const fetchRestaurantDetail = async (id: number) => {
+  const fetchRestaurantDetail = useCallback(async (id: number) => {
     setLoading(true);
     setError(null);
     try {
@@ -118,7 +121,29 @@ export const useRestaurant = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const fetchRestaurantByCategory = useCallback(
+    async (params: RestaurantParams) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await getRestaurantByCategory(params);
+        setRestaurants((prev) =>
+          params.currentPage === 1 ? data.items : [...prev, ...data.items]
+        );
+
+        return data.items;
+      } catch (error) {
+        console.log("❌ Failed to get restaurants by category:", error);
+        setError("Failed to get restaurant by category");
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
 
   const toggleFavorite = async (restaurantId: string) => {};
 
@@ -155,6 +180,7 @@ export const useRestaurant = () => {
     parseRestaurantPriceRange,
     parseRestaurantCategory,
     fetchRestaurantDetail,
+    fetchRestaurantByCategory,
     parseDate,
   };
 };

@@ -23,6 +23,7 @@ const Search = () => {
   const {
     restaurants,
     sortedRestaurants,
+
     calculateDistance,
     toNumber,
     searchByNameDB,
@@ -58,6 +59,7 @@ const Search = () => {
       currentPage: search.currentPage,
       pageSize: 10,
     });
+    console.log(restaurants);
   };
 
   const handleLoadMore = async () => {
@@ -117,7 +119,7 @@ const Search = () => {
         </Pressable> */}
       </View>
       <FlatList
-        data={sortedRestaurants}
+        data={restaurants}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.restaurantId.toString()}
         onEndReached={search.name ? handleLoadMore : undefined}
@@ -203,6 +205,21 @@ const Search = () => {
         contentContainerStyle={{ paddingBottom: 20 }}
         ListFooterComponent={
           loading ? <Text className="text-center py-4">Đang tải...</Text> : null
+        }
+        ListEmptyComponent={() =>
+          !loading && (
+            <View className="items-center justify-center py-10">
+              <Ionicons name="search-outline" size={48} color="#9CA3AF" />
+              <Text className="font-msr-medium text-lg text-gray-100 mt-4">
+                Không tìm thấy kết quả
+              </Text>
+              {search.name && (
+                <Text className="font-msr-regular text-sm text-gray-100 mt-2">
+                  Không có quán ăn nào với từ khóa {search.name}
+                </Text>
+              )}
+            </View>
+          )
         }
       />
     </View>

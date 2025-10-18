@@ -36,6 +36,7 @@ interface SignInParams {
   email: string;
   password: string;
 }
+
 export interface Restaurant {
   restaurantId: string;
   name?: string;

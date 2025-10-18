@@ -1,31 +1,19 @@
 import CustomDivider from "@/components/CustomDivider";
 import { images } from "@/constants";
-import { useProfile } from "@/hooks/useProfile";
 import { useAuth } from "@/providers/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React, { useEffect } from "react";
+import React from "react";
 import { Image, Pressable, StatusBar, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Profile = () => {
   const { signOut, user } = useAuth();
 
-  const { fetchUserProfile, profile } = useProfile();
-
   const handleLogout = async () => {
     await signOut();
     router.push("/login");
   };
-
-  useEffect(() => {
-    const loadProfile = async () => {
-      if (user?.userId) {
-        await fetchUserProfile(user.userId);
-      }
-    };
-    loadProfile();
-  }, [user]);
 
   return (
     <View className="flex-1 bg-white-100">
@@ -40,12 +28,8 @@ const Profile = () => {
               className="size-[110px] rounded-full"
             />
             <View className="justify-center items-center flex-col gap-1 mt-3">
-              <Text className="text-2xl font-msr-bold">
-                {profile?.fullName}
-              </Text>
-              <Text className="text-base font-msr-medium">
-                {profile?.email}
-              </Text>
+              <Text className="text-2xl font-msr-bold">{user?.fullName}</Text>
+              <Text className="text-base font-msr-medium">{user?.email}</Text>
             </View>
             <Pressable className="mt-5">
               <Text className="font-msr-sbold text-base underline">

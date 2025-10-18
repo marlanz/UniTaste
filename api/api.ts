@@ -51,7 +51,8 @@ function createApiClient(service: keyof typeof API_BASE_URLS) {
   api.interceptors.response.use(
     (response) => response,
     async (error) => {
-      if (error.response?.status === 401) {
+      const status = error.response?.status;
+      if (status === 401) {
         // Fixed status code (401 Unauthorized)
         await removeFromStorage("authUser");
         router.replace("/login");

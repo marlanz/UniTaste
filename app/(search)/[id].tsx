@@ -41,7 +41,6 @@ const RestaurantDetail = () => {
 
   useEffect(() => {
     fetchRestaurantDetail(restaurantId);
-    // console.log("api called again");
   }, [restaurantId, fetchRestaurantDetail]);
 
   return (
@@ -174,11 +173,13 @@ const RestaurantDetail = () => {
                       <Text className="text-base font-msr-sbold">
                         {review?.userName}
                       </Text>
-                      <Text className="text-sm text-gray-100 font-msr-medium">
-                        {parseDate(review?.createdAt)}
-                      </Text>
+                      <View className="flex-row gap-3 items-center">
+                        <Text> {renderStars(review?.rating)}</Text>
+                        <Text className="text-sm text-gray-100 font-msr-medium">
+                          {parseDate(review?.createdAt)}
+                        </Text>
+                      </View>
                     </View>
-                    {renderStars(review?.rating)}
                   </View>
                   <Text
                     numberOfLines={3}

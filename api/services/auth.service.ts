@@ -23,6 +23,20 @@ type ConfirmResetProps = {
   newPassword: string;
 };
 
+type UserPreferenceProps = {
+  userId?: number;
+  preferredPlaceTypes: string;
+  preferredPriceRange: string;
+  preferredLocation: string;
+  goingWith: string;
+  purpose: string;
+  requiredFeatures: string;
+  note: string;
+  venueAtmosphere: string;
+  cuisineType: string;
+  visitTime: string;
+};
+
 export const signIn = async (body: LoginProps): Promise<any> => {
   try {
     const response = await authApi.post(`${ENDPOINTS.LOGIN}`, body);
@@ -84,8 +98,22 @@ export const checkResetPassworCode = async (
       body
     );
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.log("Error fetching at: ", ENDPOINTS.CHECK_RESET_PW_CODE);
-    throw error;
+    throw new Error(
+      error.response?.data?.message || "Failed to check reset password code"
+    );
+  }
+};
+
+export const createUserPreference = async (body: UserPreferenceProps) => {
+  try {
+    const response = await authApi.post(ENDPOINTS.CREATE_USER_PREFERENCE, body);
+    return response.data;
+  } catch (error: any) {
+    console.log("Error fetching at: ", ENDPOINTS.CHECK_RESET_PW_CODE);
+    throw new Error(
+      error.response?.data?.message || "Failed to create user preferences"
+    );
   }
 };

@@ -28,9 +28,9 @@ const Register = () => {
     setAppLoading(true);
     try {
       const data = await signUp(form);
+      setTempMail(form.email);
       console.log(data);
       if (data.status === true) {
-        setTempMail(form.email);
         router.push("/verify");
       }
     } catch (error: any) {

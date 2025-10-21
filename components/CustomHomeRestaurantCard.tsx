@@ -50,6 +50,7 @@ const CustomHomeRestaurantCard = ({
               resizeMode="stretch"
               className="w-[180px] h-[160px] rounded-[8px]"
             />
+
             <View className="gap-1">
               <Text className="font-msr-sbold text-base" numberOfLines={1}>
                 {item.name}

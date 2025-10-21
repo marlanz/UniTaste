@@ -4,7 +4,14 @@ import { useAuth } from "@/providers/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
-import { Image, Pressable, StatusBar, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StatusBar,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Profile = () => {
@@ -16,7 +23,7 @@ const Profile = () => {
   };
 
   return (
-    <View className="flex-1 bg-white-100">
+    <ScrollView className="flex-1 bg-white-100">
       <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
       <SafeAreaView>
         <View className="user-info mt-[30px] justify-center w-full items-center">
@@ -37,6 +44,19 @@ const Profile = () => {
               </Text>
             </Pressable>
             <View className="action-btn mt-10 px-6">
+              <Pressable
+                className="flex-row items-center justify-between w-full"
+                onPress={() => router.replace("/(preference)/user-preference")}
+              >
+                <View className="flex-row gap-2 items-center">
+                  <Ionicons name="restaurant-outline" size={24} />
+                  <Text className="font-msr-medium text-base">
+                    Cập nhật sở thích tìm quán
+                  </Text>
+                </View>
+                <Ionicons name="chevron-forward-outline" size={24} />
+              </Pressable>
+              <CustomDivider />
               <Pressable className="flex-row items-center justify-between w-full">
                 <View className="flex-row gap-2 items-center">
                   <Ionicons name="heart-outline" size={24} />
@@ -97,7 +117,7 @@ const Profile = () => {
           </View>
         </View>
       </SafeAreaView>
-    </View>
+    </ScrollView>
   );
 };
 

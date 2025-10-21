@@ -27,11 +27,13 @@ interface AuthContextType {
   appLoading: boolean;
   isAuthenticated: boolean;
   resetpwCode: string;
+  newUser: boolean;
   signIn: (email: string, pw: string) => Promise<void>;
   signOut: () => Promise<void>;
   setAppLoading: (loading: boolean) => void;
   setTempMail: (mail: string) => void;
   setResetpwCode: (token: string) => void;
+  setNewUser: (newUser: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -41,6 +43,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [appLoading, setAppLoading] = useState(true);
   const [tempMail, setTempMail] = useState("");
   const [resetpwCode, setResetpwCode] = useState("");
+  const [newUser, setNewUser] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -85,11 +88,13 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         tempMail,
         resetpwCode,
         isAuthenticated,
+        newUser,
         signIn,
         signOut,
         setAppLoading,
         setTempMail,
         setResetpwCode,
+        setNewUser,
       }}
     >
       {children}

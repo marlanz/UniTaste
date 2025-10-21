@@ -8,7 +8,8 @@ import React, { useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 
 const Verify = () => {
-  const { tempMail, appLoading, setAppLoading, resetpwCode } = useAuth();
+  const { tempMail, appLoading, setAppLoading, resetpwCode, setNewUser } =
+    useAuth();
 
   const [code, setCode] = useState(["", "", "", "", "", ""]);
 
@@ -38,14 +39,15 @@ const Verify = () => {
     inputRefs[inputRefs.length - 1].current?.blur();
     const finalCode = code.join("");
     const body = { email: tempMail, otpCode: finalCode };
-    // console.log(body);
     setAppLoading(true);
+
     try {
       if (resetpwCode) {
         router.push("/change-password");
         return;
       }
       const data = await verifyAccount(body);
+      setNewUser(true);
       console.log(data);
       router.push("/");
     } catch (error: any) {

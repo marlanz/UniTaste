@@ -3,7 +3,6 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { ActivityIndicator, View } from "react-native";
 import "./globals.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -11,13 +10,13 @@ SplashScreen.preventAutoHideAsync();
 function RootLayoutNav() {
   const { appLoading } = useAuth();
 
-  if (appLoading) {
-    return (
-      <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
+  // if (appLoading) {
+  //   return (
+  //     <View className="flex-1 items-center justify-center bg-white">
+  //       <ActivityIndicator size="large" />
+  //     </View>
+  //   );
+  // }
 
   return (
     <Stack

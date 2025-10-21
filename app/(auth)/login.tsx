@@ -2,11 +2,11 @@ import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import { useAuth } from "@/providers/AuthProvider";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const Login = () => {
-  const { appLoading, signIn, setAppLoading } = useAuth();
+  const { appLoading, signIn, setAppLoading, newUser } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -21,6 +21,10 @@ const Login = () => {
     setAppLoading(true);
     try {
       await signIn(form.email, form.password);
+      if (newUser) {
+        router.replace("/(preference)/user-preference");
+        return;
+      }
       router.replace("/");
     } catch (err) {
       console.log("Login failed", err);
@@ -29,6 +33,10 @@ const Login = () => {
     }
     // console.log("hello");
   };
+
+  useEffect(() => {
+    console.log("is user new here?: ", newUser);
+  }, []);
 
   return (
     <View className="flex-1 px-6 py-10 gap-6 absolute w-full  bg-white-100 top-[200] rounded-t-3xl -mt-6">

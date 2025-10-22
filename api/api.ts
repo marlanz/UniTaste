@@ -4,7 +4,7 @@ import axios from "axios";
 import { router } from "expo-router";
 import { Platform } from "react-native";
 
-const useProductionAPI = true;
+const useProductionAPI = false;
 
 // Dynamic base URL function
 const getBaseUrl = (service: "auth" | "restaurants") => {
@@ -12,8 +12,8 @@ const getBaseUrl = (service: "auth" | "restaurants") => {
     auth: useProductionAPI
       ? "https://unitasteapp1.onrender.com/api"
       : Platform.OS === "android"
-        ? "http://10.0.2.2:5000/api"
-        : "http://localhost:5000/api",
+        ? "http://10.0.2.2:5001/api"
+        : "http://localhost:5001/api",
 
     restaurants: useProductionAPI
       ? "https://unitasteapp-restaurantservice.onrender.com/api"

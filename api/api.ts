@@ -4,19 +4,21 @@ import axios from "axios";
 import { router } from "expo-router";
 import { Platform } from "react-native";
 
-const useProductionAPI = false;
+const useProductionAPI = true;
+
+const productionAPI = process.env.EXPO_PUBLIC_API_PRODUCTION_URL;
 
 // Dynamic base URL function
 const getBaseUrl = (service: "auth" | "restaurants") => {
   const baseUrls = {
     auth: useProductionAPI
-      ? "https://unitasteapp1.onrender.com/api"
+      ? "https://userservice-5qvn.onrender.com/api"
       : Platform.OS === "android"
         ? "http://10.0.2.2:5001/api"
         : "http://localhost:5001/api",
 
     restaurants: useProductionAPI
-      ? "https://unitasteapp-restaurantservice.onrender.com/api"
+      ? "https://restaurantservice-2dyf.onrender.com/api"
       : Platform.OS === "android"
         ? "http://10.0.2.2:5003/api"
         : "http://localhost:5003/api",

@@ -88,7 +88,7 @@ const visitTimes = [
 ];
 
 const Preference = () => {
-  const { user, setAppLoading, appLoading } = useAuth();
+  const { user, setAppLoading, appLoading, setNewUser } = useAuth();
 
   const [preferences, setPreferences] = useState({
     userId: user?.userId,
@@ -133,6 +133,7 @@ const Preference = () => {
       const data = await createUserPreference(preferences);
       console.log(data);
       if (data) {
+        setNewUser(false);
         router.replace("/");
       }
     } catch (err) {

@@ -1,3 +1,4 @@
+import StarRating from "@/components/StarRating";
 import { images } from "@/constants";
 import { useMap } from "@/hooks/useMap";
 import { useRestaurant } from "@/hooks/useRestaurant";
@@ -37,6 +38,10 @@ const RestaurantDetail = () => {
       );
     }
     return <View className="flex-row">{stars}</View>;
+  };
+
+  const handleNavigateToRating = () => {
+    router.push(`/(rating)/rating`); // how can i save restaurant id and rating score to params
   };
 
   useEffect(() => {
@@ -138,6 +143,22 @@ const RestaurantDetail = () => {
                 </Text>
               </View>
             </View>
+          </View>
+        </View>
+        <View className="mt-8 pl-4">
+          <Text className="font-msr-sbold text-xl mb-2">
+            Viết một bài đánh giá
+          </Text>
+          <View className="flex-row items-center gap-3">
+            <Image
+              source={images.profile}
+              className="size-[45px] rounded-full"
+              resizeMode="contain"
+            />
+            <StarRating
+              initialRating={0}
+              onRate={(rating) => console.log("User rated:", rating)}
+            />
           </View>
         </View>
         <View className="comments mt-8 px-4 pb-[100px]">

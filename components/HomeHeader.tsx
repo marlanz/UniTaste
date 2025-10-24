@@ -2,6 +2,7 @@ import { images } from "@/constants";
 import { useAuth } from "@/providers/AuthProvider";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 
@@ -32,14 +33,14 @@ const HomeHeader = () => {
         </TouchableOpacity>
       </View>
       <View className="mt-6 flex-row items-center justify-between flex gap-2">
-        <Pressable className="flex-row items-center p-4 bg-white-100 rounded-full gap-2 flex-1">
+        <Pressable
+          className="flex-row items-center p-4 bg-white-100 rounded-full gap-2 flex-1"
+          onPress={() => router.push("/search")}
+        >
           <Ionicons name="search-outline" size={20} />
           <Text className=" font-msr text-xl text-gray-100">
             Tìm kiếm quán ăn
           </Text>
-        </Pressable>
-        <Pressable className="p-4 bg-white-100 rounded-full">
-          <Ionicons name="map-outline" size={26} color="#FD8200" />
         </Pressable>
       </View>
     </LinearGradient>

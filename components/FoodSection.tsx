@@ -8,7 +8,7 @@ const FoodSection = () => {
   useEffect(() => {
     fetchRestaurantByCategory({
       categoryId: 2,
-      currentPage: 2,
+      currentPage: 1,
       pageSize: 8,
     });
   }, [fetchRestaurantByCategory]);

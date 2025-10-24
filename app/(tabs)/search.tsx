@@ -3,8 +3,8 @@ import { useMap } from "@/hooks/useMap";
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { router } from "expo-router";
-import React, { useState } from "react";
+import { router, useFocusEffect } from "expo-router";
+import React, { useCallback, useRef, useState } from "react";
 import {
   FlatList,
   Image,
@@ -22,8 +22,6 @@ const myLocation = {
 const Search = () => {
   const {
     restaurants,
-    sortedRestaurants,
-
     calculateDistance,
     toNumber,
     searchByNameDB,
@@ -41,6 +39,8 @@ const Search = () => {
   });
 
   const [hasMore, setHasMore] = useState(true);
+
+  const inputRef = useRef<TextInput>(null);
 
   const handleChange = (value: string) => {
     setSearch({ name: value, currentPage: 1 });
@@ -79,6 +79,14 @@ const Search = () => {
       setSearch((prev) => ({ ...prev, currentPage: nextPage }));
     }
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      // Mỗi khi màn hình được focus lại (người dùng quay lại tab này)
+      inputRef.current?.focus();
+    }, [])
+  );
+
   return (
     <View className="bg-white-100 flex-1">
       <LinearGradient
@@ -109,6 +117,7 @@ const Search = () => {
             onChangeText={handleChange}
             onSubmitEditing={handleSearch}
             returnKeyType="search"
+            ref={inputRef}
           />
         </View>
         {/* <Pressable

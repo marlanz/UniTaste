@@ -10,5 +10,6 @@ export const ENDPOINTS = {
   GET_USER_PROFILE: "/Users/get-profile-user-by-id",
   GET_RESTAURANT_BY_CATEGORY: "/Restaurants/search-by-categoryId-with-paging",
   CREATE_USER_PREFERENCE: "/Users/create-user-preference",
+  CREATE_REVIEW: "/Post/create",
   // SEARCH_RESTAURANTS_GOOGLE: "/Restaurants/search-by-name-with-paging",
 };

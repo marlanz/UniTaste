@@ -9,19 +9,24 @@ const useProductionAPI = true;
 const productionAPI = process.env.EXPO_PUBLIC_API_PRODUCTION_URL;
 
 // Dynamic base URL function
-const getBaseUrl = (service: "auth" | "restaurants") => {
+const getBaseUrl = (service: "auth" | "restaurants" | "social") => {
   const baseUrls = {
     auth: useProductionAPI
       ? "https://userservice-5qvn.onrender.com/api"
       : Platform.OS === "android"
-        ? "http://10.0.2.2:5001/api"
-        : "http://localhost:5001/api",
+      ? "http://10.0.2.2:5001/api"
+      : "http://localhost:5001/api",
 
     restaurants: useProductionAPI
       ? "https://restaurantservice-2dyf.onrender.com/api"
       : Platform.OS === "android"
-        ? "http://10.0.2.2:5003/api"
-        : "http://localhost:5003/api",
+      ? "http://10.0.2.2:5003/api"
+      : "http://localhost:5003/api",
+    social: useProductionAPI
+      ? "https://socialservice-i0f5.onrender.com/api"
+      : Platform.OS === "android"
+      ? "http://10.0.2.2:5003/api"
+      : "http://localhost:5003/api",
   };
 
   return baseUrls[service];
@@ -30,6 +35,7 @@ const getBaseUrl = (service: "auth" | "restaurants") => {
 export const API_BASE_URLS = {
   auth: getBaseUrl("auth"),
   restaurants: getBaseUrl("restaurants"),
+  social: getBaseUrl("social"),
 };
 
 function createApiClient(service: keyof typeof API_BASE_URLS) {
@@ -67,4 +73,5 @@ function createApiClient(service: keyof typeof API_BASE_URLS) {
 }
 
 export const authApi = createApiClient("auth");
+export const socialApi = createApiClient("social");
 export const restaurantApi = createApiClient("restaurants"); // Fixed variable name

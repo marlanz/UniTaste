@@ -82,7 +82,6 @@ const Search = () => {
 
   useFocusEffect(
     useCallback(() => {
-      // Mỗi khi màn hình được focus lại (người dùng quay lại tab này)
       inputRef.current?.focus();
     }, [])
   );

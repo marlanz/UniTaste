@@ -33,15 +33,18 @@ const RestaurantDetail = () => {
           key={i}
           name={i <= rating ? "star" : "star-outline"}
           size={14}
-          color={i <= rating ? "#FD8200" : "#C0C0C0"} // sao vàng / xám
+          color={i <= rating ? "#FD8200" : "#C0C0C0"}
         />
       );
     }
     return <View className="flex-row">{stars}</View>;
   };
 
-  const handleNavigateToRating = () => {
-    router.push(`/(rating)/rating`); // how can i save restaurant id and rating score to params
+  const handleNavigateToRating = (rating: number) => {
+    router.push({
+      pathname: `../rating/${restaurantId}`,
+      params: { score: Number(rating) },
+    });
   };
 
   useEffect(() => {
@@ -50,7 +53,10 @@ const RestaurantDetail = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 40 }}
+      >
         <View>
           <Image
             source={{ uri: restaurantDetail?.coverImageUrl }}
@@ -155,10 +161,7 @@ const RestaurantDetail = () => {
               className="size-[45px] rounded-full"
               resizeMode="contain"
             />
-            <StarRating
-              initialRating={0}
-              onRate={(rating) => console.log("User rated:", rating)}
-            />
+            <StarRating initialRating={0} onRate={handleNavigateToRating} />
           </View>
         </View>
         <View className="comments mt-8 px-4 pb-[100px]">

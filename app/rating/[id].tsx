@@ -103,8 +103,7 @@ const Rating = () => {
           <TextInput
             multiline
             numberOfLines={6}
-            placeholder={`Cho chúng tôi biết về trải nghiệm của bạn tại đây.
-Bạn có thể chia sẻ những gì bạn thích, chưa hài lòng, hoặc gợi ý cho quán.`}
+            placeholder={`Cho chúng tôi biết về trải nghiệm của bạn tại đây. Bạn có thể chia sẻ những gì bạn thích, chưa hài lòng, hoặc gợi ý cho quán.`}
             placeholderTextColor="#9CA3AF"
             textAlignVertical="top"
             value={form.review}
@@ -114,8 +113,8 @@ Bạn có thể chia sẻ những gì bạn thích, chưa hài lòng, hoặc g�
               borderColor: "#D1D5DB",
               borderWidth: 1,
               borderRadius: 8,
-              padding: 12,
-
+              paddingHorizontal: 12,
+              paddingVertical: 10,
               lineHeight: 20,
             }}
             className="mt-6 font-msr-medium text-base"

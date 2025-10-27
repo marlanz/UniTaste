@@ -3,8 +3,8 @@ import { useMap } from "@/hooks/useMap";
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { router, useFocusEffect } from "expo-router";
-import React, { useCallback, useRef, useState } from "react";
+import { router } from "expo-router";
+import React, { useState } from "react";
 import {
   FlatList,
   Image,
@@ -40,7 +40,7 @@ const Search = () => {
 
   const [hasMore, setHasMore] = useState(true);
 
-  const inputRef = useRef<TextInput>(null);
+  // const inputRef = useRef<TextInput>(null);
 
   const handleChange = (value: string) => {
     setSearch({ name: value, currentPage: 1 });
@@ -80,19 +80,13 @@ const Search = () => {
     }
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      inputRef.current?.focus();
-    }, [])
-  );
-
   return (
     <View className="bg-white-100 flex-1">
       <LinearGradient
         colors={["#FD8200", "#EB4F26"]}
         start={{ x: 0, y: 0 }} // top-left
         end={{ x: 1, y: 1 }} // bottom-right
-        style={{ paddingHorizontal: 20, paddingTop: 60, paddingBottom: 35 }}
+        style={{ paddingHorizontal: 20, paddingTop: 60, paddingBottom: 20 }}
       >
         <View className="flex-col gap-1">
           <Text className="font-msr-medium text-base text-white-100">
@@ -105,27 +99,29 @@ const Search = () => {
             {address}
           </Text>
         </View>
-      </LinearGradient>
-      <View className="flex-row items-center justify-between flex gap-2 px-5 absolute top-[115] z-10">
-        <View className="flex-row items-center p-4 bg-white-100 rounded-[15px] gap-3 flex-1 shadow-figma">
-          <Ionicons name="search-outline" size={20} />
-          <TextInput
-            placeholder="Tìm kiếm quán ăn"
-            className="font-msr-medium text-xl flex-1 pb-1"
-            value={search.name}
-            onChangeText={handleChange}
-            onSubmitEditing={handleSearch}
-            returnKeyType="search"
-            ref={inputRef}
-          />
-        </View>
-        {/* <Pressable
+        <View className="flex-row items-center justify-between flex gap-2 mt-4">
+          <View className="flex-row items-center p-4 bg-white-100 rounded-[15px] gap-3 flex-1 shadow-figma">
+            <Ionicons name="search-outline" size={20} />
+            <TextInput
+              placeholder="Tìm kiếm quán ăn"
+              className="font-msr-medium text-xl flex-1 pb-1"
+              value={search.name}
+              onChangeText={handleChange}
+              onSubmitEditing={handleSearch}
+              returnKeyType="search"
+              // ref={inputRef}
+              autoFocus={true}
+            />
+          </View>
+          {/* <Pressable
           className="p-4 bg-white-100 rounded-[15px] shadow-figma"
           onPress={() => router.push("/map")}
         >
           <Ionicons name="map-outline" size={26} color="#FD8200" />
         </Pressable> */}
-      </View>
+        </View>
+      </LinearGradient>
+
       <FlatList
         data={restaurants}
         showsVerticalScrollIndicator={false}
@@ -161,7 +157,7 @@ const Search = () => {
               <View className="flex-col justify-between flex-1">
                 <View className="gap-1 ">
                   <Text
-                    className="font-msr-sbold text-[18px] "
+                    className="font-msr-sbold text-base "
                     ellipsizeMode="tail"
                     numberOfLines={1}
                   >

@@ -116,7 +116,7 @@ const RestaurantDetail = () => {
               </View>
             </View>
             <View className="restaurant-name">
-              <Text className="text-3xl font-msr-sbold">
+              <Text className="text-2xl font-msr-sbold">
                 {restaurantDetail?.name}
               </Text>
             </View>

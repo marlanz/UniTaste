@@ -60,8 +60,8 @@ const _layout = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
-              title="Yêu thích"
-              icon={"heart-outline"}
+              title="Bài viết"
+              icon={"reader-outline"}
               focused={focused}
             />
           ),

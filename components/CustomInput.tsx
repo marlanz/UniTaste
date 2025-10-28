@@ -11,6 +11,8 @@ const CustomInput = ({
   label,
   secureTextEntry = false,
   keyboardType = "default",
+  multiline,
+  labelStyle,
 }: CustomInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -18,22 +20,55 @@ const CustomInput = ({
     <>
       {label ? (
         <View className="w-full gap-2">
-          <Text className="text-sm font-msr-bold">{label}</Text>
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={onChangeText}
-            secureTextEntry={secureTextEntry}
-            keyboardType={keyboardType}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            placeholder={placeholder}
-            placeholderTextColor={"#8F9098"}
+          <Text
             className={cn(
-              "p-4 font-msr-medium text-base border border-gray-100 rounded-xl height-[50px]",
-              isFocused ? "border-orange-200" : "border-gray-100"
+              "",
+              labelStyle ? labelStyle : "text-sm font-msr-bold"
             )}
-          />
+          >
+            {label}
+          </Text>
+          {multiline ? (
+            <TextInput
+              multiline
+              autoCapitalize="none"
+              numberOfLines={6}
+              autoCorrect={false}
+              placeholder={`Cho chúng tôi biết về trải nghiệm của bạn tại đây. Bạn có thể chia sẻ những gì bạn thích, chưa hài lòng, hoặc gợi ý cho quán.`}
+              onChangeText={onChangeText}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              placeholderTextColor={"#8F9098"}
+              textAlignVertical="top"
+              value={value}
+              className={cn(
+                "p-4 font-msr-medium text-base border border-gray-100 rounded-xl",
+                isFocused ? "border-orange-200" : "border-gray-100"
+              )}
+              style={{
+                minHeight: 150,
+                paddingHorizontal: 12,
+                paddingVertical: 10,
+                lineHeight: 20,
+              }}
+            />
+          ) : (
+            <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={onChangeText}
+              secureTextEntry={secureTextEntry}
+              keyboardType={keyboardType}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              placeholder={placeholder}
+              placeholderTextColor={"#8F9098"}
+              className={cn(
+                "p-4 font-msr-medium text-base border border-gray-100 rounded-xl height-[50px]",
+                isFocused ? "border-orange-200" : "border-gray-100"
+              )}
+            />
+          )}
         </View>
       ) : (
         <>

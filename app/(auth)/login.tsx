@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const Login = () => {
-  const { appLoading, signIn, setAppLoading, newUser } = useAuth();
+  const { appLoading, signIn, setAppLoading, newUser, user } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -25,6 +25,7 @@ const Login = () => {
         router.replace("/(preference)/user-preference");
         return;
       }
+
       router.replace("/");
     } catch (err) {
       console.log("Login failed", err);
@@ -61,7 +62,10 @@ const Login = () => {
         secureTextEntry={true}
       />
 
-      <TouchableOpacity onPress={() => router.push("/forgot")}>
+      <TouchableOpacity
+        onPress={() => router.push("/forgot")}
+        className="self-start"
+      >
         <Text className="text-orange-200 font-msr-sbold text-sm">
           Quên mật khẩu?
         </Text>

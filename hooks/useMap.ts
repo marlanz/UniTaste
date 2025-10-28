@@ -126,7 +126,12 @@ export const useMap = (options?: UseMapOptions) => {
 
       if (geocode.length > 0) {
         const info = geocode[0];
-        const formattedAddress = [info.street, info.district, info.city]
+        const formattedAddress = [
+          info.streetNumber,
+          info.street,
+          info.district,
+          info.city,
+        ]
           .filter(Boolean)
           .join(", ");
 

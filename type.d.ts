@@ -21,9 +21,11 @@ interface CustomInputProps {
   placeholder?: string;
   value?: string;
   onChangeText?: (text: string) => void;
-  label: string;
+  label?: string;
   secureTextEntry?: boolean;
+  multiline?: boolean;
   keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
+  labelStyle?: string;
 }
 
 interface CreateUserPrams {
@@ -79,4 +81,14 @@ export interface Review {
   createdAt: string;
   photoReviews: any[];
   restaurant: Restaurant;
+}
+
+export interface CreatePostProps {
+  title: string;
+  content: string;
+  rating: number;
+  isReview: boolean;
+  visibility: string;
+  tags?: string[];
+  restaurantId: number;
 }

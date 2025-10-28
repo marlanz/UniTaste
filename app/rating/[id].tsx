@@ -1,29 +1,34 @@
-import { createReview } from "@/api/services/social.service";
+import CustomInput from "@/components/CustomInput";
 import StarRating from "@/components/StarRating";
+import usePost from "@/hooks/usePost";
 import { useRestaurant } from "@/hooks/useRestaurant";
+import { CreatePostProps } from "@/type";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   Keyboard,
   Pressable,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 const Rating = () => {
   const { id, score } = useLocalSearchParams();
 
   const { restaurantDetail, fetchRestaurantDetail } = useRestaurant();
 
+  const { createPost, loading } = usePost();
+
   const parseScore = Number(score);
 
   const [form, setForm] = useState({
+    title: "",
+    content: "",
     rating: parseScore || 0,
-    review: "",
   });
 
   const restaurantId = Number(id);
@@ -40,26 +45,31 @@ const Rating = () => {
     setForm((prev) => ({ ...prev, rating: newRating }));
   };
 
-  const handleChangeReview = (text: string) => {
-    setForm((prev) => ({ ...prev, review: text }));
+  const handleChangeReview = (value: string, name: "content" | "title") => {
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmitReview = async () => {
-    const body = {
-      title: "Review Milano",
-      content: form.review,
+    const body: CreatePostProps = {
+      title: form.title,
+      content: form.content,
+      restaurantId: restaurantId,
       rating: form.rating,
       isReview: true,
       visibility: "Public",
-      tags: "cafe",
-      restaurantId: 8,
+      tags: restaurantDetail?.categories?.[0]
+        ? [restaurantDetail.categories[0].name]
+        : ["string"],
     };
     try {
-      await createReview(body);
+      const data = await createPost(body);
+      if (data) {
+        Alert.alert("Đăng bài thành công");
+        setTimeout(() => router.back(), 300);
+      }
     } catch (err) {
       console.log("Error submitting review: ", err);
     }
-    console.log(form);
   };
 
   useEffect(() => {
@@ -100,35 +110,46 @@ const Rating = () => {
             />
           </View>
 
-          <TextInput
-            multiline
-            numberOfLines={6}
-            placeholder={`Cho chúng tôi biết về trải nghiệm của bạn tại đây. Bạn có thể chia sẻ những gì bạn thích, chưa hài lòng, hoặc gợi ý cho quán.`}
-            placeholderTextColor="#9CA3AF"
-            textAlignVertical="top"
-            value={form.review}
-            onChangeText={handleChangeReview}
-            style={{
-              minHeight: 150,
-              borderColor: "#D1D5DB",
-              borderWidth: 1,
-              borderRadius: 8,
-              paddingHorizontal: 12,
-              paddingVertical: 10,
-              lineHeight: 20,
-            }}
-            className="mt-6 font-msr-medium text-base"
-          />
+          <View className="mt-6 gap-4">
+            <CustomInput
+              placeholder={"Tiêu đề đánh giá"}
+              label="Tiêu đề đánh giá"
+              onChangeText={(value) => handleChangeReview(value, "title")}
+              labelStyle="text-base font-msr-sbold"
+              value={form.title}
+            />
+
+            <CustomInput
+              placeholder={`Cho chúng tôi biết về trải nghiệm của bạn tại đây. Bạn có thể chia sẻ những gì bạn thích, chưa hài lòng, hoặc gợi ý cho quán.`}
+              label="Nội dung đánh giá"
+              onChangeText={(value) => handleChangeReview(value, "content")}
+              labelStyle="text-base font-msr-sbold"
+              value={form.content}
+              multiline={true}
+            />
+          </View>
         </View>
-        <View className="show-direction-container absolute bottom-0 bg-white-100 p-5 w-full flex-row items-center justify-between shadow-detail">
+        <View className="absolute bottom-0 p-5 w-full z-20">
           <Pressable
-            className="p-4 rounded-[8px] bg-orange-200 items-center justify-center mb-3 flex-1"
+            className="bg-orange-200 w-full py-4 rounded-lg"
             onPress={handleSubmitReview}
-            disabled={false}
+            disabled={loading}
           >
-            <Text className="text-base font-msr-sbold text-white-100">
-              Lưu đánh giá
-            </Text>
+            {/* {leftIcon} */}
+            <View className="flex-center flex-row">
+              {loading ? (
+                <View className="flex-row gap-2">
+                  <ActivityIndicator size={"small"} color={"white"} />
+                  <Text className="text-white-100 font-msr-sbold text-base ">
+                    Đang đăng bài...
+                  </Text>
+                </View>
+              ) : (
+                <Text className="text-white-100 font-msr-sbold text-base ">
+                  Đăng bài
+                </Text>
+              )}
+            </View>
           </Pressable>
         </View>
       </SafeAreaView>

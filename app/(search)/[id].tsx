@@ -153,7 +153,7 @@ const RestaurantDetail = () => {
         </View>
         <View className="mt-8 pl-4">
           <Text className="font-msr-sbold text-xl mb-2">
-            Viết một bài đánh giá
+            Trải nghiệm của bạn ở quán
           </Text>
           <View className="flex-row items-center gap-3">
             <Image
@@ -222,7 +222,7 @@ const RestaurantDetail = () => {
           <View className="flex-1 mr-8">
             <Text className="text-base font-msr-sbold">Vị trí của bạn</Text>
             <Text
-              className="text-sm font-msr-medium text-gray-100"
+              className="text-base font-msr-medium text-gray-100"
               numberOfLines={2}
             >
               {!address ? "Đang cập nhật địa chỉ" : address}

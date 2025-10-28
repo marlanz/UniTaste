@@ -96,7 +96,7 @@ const Search = () => {
             className="font-msr-bold text-base text-white-100"
             numberOfLines={1}
           >
-            {address}
+            {!address ? "Đang cập nhật địa chỉ" : address}
           </Text>
         </View>
         <View className="flex-row items-center justify-between flex gap-2 mt-4">

@@ -56,7 +56,7 @@ const _layout = () => {
         }}
       />
       <Tabs.Screen
-        name="favorites"
+        name="reviews"
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon

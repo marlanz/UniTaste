@@ -217,7 +217,7 @@ const RestaurantDetail = () => {
           </View>
         </View>
       </ScrollView>
-      <View className="show-direction-container absolute bottom-0 bg-white-100 p-5 w-full flex-row items-center justify-between shadow-detail">
+      <View className="show-direction-container absolute bottom-0 bg-white-100 p-5 w-full flex-row items-center justify-between boxShadow-detail">
         <View className="mb-2 flex-row items-center justify-between w-full">
           <View className="flex-1 mr-8">
             <Text className="text-base font-msr-sbold">Vị trí của bạn</Text>

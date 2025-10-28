@@ -1,9 +1,13 @@
-import { getPostByRestaurantId, savePost } from "@/api/services/social.service";
-import { CreatePostProps } from "@/type";
+import {
+  getAllPosts,
+  getPostByRestaurantId,
+  savePost,
+} from "@/api/services/social.service";
+import { CreatePostProps, Post } from "@/type";
 import { useCallback, useState } from "react";
 
 const usePost = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>("");
 
@@ -36,7 +40,36 @@ const usePost = () => {
     }
   }, []);
 
-  return { createPost, fetchPostsByRestaurantId, posts, loading, error };
+  const fetchAllPost = useCallback(
+    async (currentPage: number, pageSize: number) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await getAllPosts(currentPage, pageSize);
+        setPosts((prev) =>
+          currentPage === 1 ? data.items : [...prev, ...data.items]
+        );
+
+        return data.items;
+      } catch (err: any) {
+        console.log("❌ Failed to fetch post:", err);
+        setError("Failed to fetch post");
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
+  return {
+    createPost,
+    fetchPostsByRestaurantId,
+    fetchAllPost,
+    posts,
+    loading,
+    error,
+  };
 };
 
 export default usePost;

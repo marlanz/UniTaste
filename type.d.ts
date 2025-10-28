@@ -83,6 +83,23 @@ export interface Review {
   restaurant: Restaurant;
 }
 
+export interface Post {
+  restaurantId: number;
+  postId: number;
+  authorUserId: number;
+  title: string;
+  content: string;
+  rating: number;
+  isReview: boolean;
+  visibility: string;
+  createdAt: string;
+  mediaUrls: string[];
+  tags: string[];
+  reactionsCount: number;
+  commentsCount: number;
+  sharesCount: number;
+}
+
 export interface CreatePostProps {
   title: string;
   content: string;

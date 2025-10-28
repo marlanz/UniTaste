@@ -22,3 +22,18 @@ export const getPostByRestaurantId = async (id: number): Promise<any> => {
     console.log("Error at getting posts by restaurant id: ", err);
   }
 };
+
+export const getAllPosts = async (
+  currentPage: number,
+  pageSize: number
+): Promise<any> => {
+  try {
+    const response = await socialApi.get(ENDPOINTS.GET_ALL_POST, {
+      params: { page: currentPage, pageSize },
+    });
+
+    return response?.data;
+  } catch (err) {
+    console.log("Error at getting posts: ", err);
+  }
+};

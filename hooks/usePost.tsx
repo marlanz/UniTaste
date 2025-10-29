@@ -1,3 +1,4 @@
+import { getAuthorName } from "@/api/services/auth.service";
 import {
   getAllPosts,
   getPostByRestaurantId,
@@ -62,10 +63,23 @@ const usePost = () => {
     []
   );
 
+  const fetchAuhthorName = useCallback(async (id: number) => {
+    try {
+      const data = await getAuthorName(id);
+      console.log(data.fullName);
+      return data.fullName;
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     createPost,
     fetchPostsByRestaurantId,
     fetchAllPost,
+    fetchAuhthorName,
     posts,
     loading,
     error,

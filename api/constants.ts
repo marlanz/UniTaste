@@ -13,5 +13,6 @@ export const ENDPOINTS = {
   CREATE_REVIEW: "/Posts/create-post-mobile",
   GET_POSTS_BY_RESTAURANT_ID: "/Posts/get-post-by-restaurant-id",
   GET_ALL_POST: "/Posts/get-all-paged",
+  GET_AUTHOR_NAME: "/Users/get-fullname-by-userId",
   // SEARCH_RESTAURANTS_GOOGLE: "/Restaurants/search-by-name-with-paging",
 };

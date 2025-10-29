@@ -115,6 +115,7 @@ export const useRestaurant = () => {
     try {
       const data = await getRestaurantDetail(id);
       setRestaurantDetail(data);
+      return data;
     } catch (err) {
       console.log("❌ Failed to get detail restaurant: ", err);
       setError("Failed to get detail restaurant");

@@ -117,3 +117,17 @@ export const createUserPreference = async (body: UserPreferenceProps) => {
     );
   }
 };
+
+export const getAuthorName = async (id: number): Promise<any> => {
+  try {
+    const response = await authApi.get(ENDPOINTS.GET_AUTHOR_NAME, {
+      params: { userId: id },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.log("Error fetching author name: ", error);
+    throw new Error(
+      error.response?.data?.message || "Failed to get author name"
+    );
+  }
+};
